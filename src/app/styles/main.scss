@@ -1,0 +1,6 @@
+@use "./vars/vars";
+@use "./reset/reset";
+
+body {
+  font-family: var(--font-roboto);
+}
