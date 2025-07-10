@@ -11,6 +11,18 @@ function AntdConfigProvider({ children }: IProps) {
       theme={{
         token: {
           fontFamily: "var(--font-roboto)",
+          fontSize: 16,
+        },
+        components: {
+          Layout: {
+            siderBg: "var(--sidebar-bg)",
+            headerBg: "var(--header-bg)",
+            headerHeight: "var(--header-height)",
+            headerPadding: "var(--header-padding)",
+          },
+          Menu: {
+            colorBgContainer: "transparent",
+          },
         },
       }}
     >
