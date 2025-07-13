@@ -17,9 +17,20 @@ const siderStyle: React.CSSProperties = {
   scrollbarGutter: "stable",
 };
 
-function Sidebar() {
+interface IProps {
+  collapsed: boolean;
+}
+
+function Sidebar({ collapsed }: IProps) {
   return (
-    <Sider style={siderStyle} className={styles.sidebar} width={250}>
+    <Sider
+      style={siderStyle}
+      className={styles.sidebar}
+      width={250}
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+    >
       <LogoLink />
       <SidebarMenu />
     </Sider>

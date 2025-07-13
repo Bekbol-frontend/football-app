@@ -11,7 +11,8 @@ function AntdConfigProvider({ children }: IProps) {
       theme={{
         token: {
           fontFamily: "var(--font-roboto)",
-          fontSize: 16,
+          fontSize: 15,
+          borderRadius: 3,
         },
         components: {
           Layout: {
