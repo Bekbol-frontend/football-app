@@ -1,3 +1,10 @@
 {
-  "Hello": "Привет"
+  "Something went wrong.": "Что-то пошло не так.",
+  "Reload page": "Обновить страницу",
+  "News": "Новости",
+  "League": "Лига",
+  "Clubs": "Клубы",
+  "Match schedule": "Расписание матчей",
+  "Personnel": "Персонал",
+  "Partners": "Партнеры"
 }
