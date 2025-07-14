@@ -69,21 +69,30 @@ const items: MenuProps["items"] = [
 ];
 
 const objLang = {
-  en: "English",
-  ru: "Русский",
-  kk: "Qaraqalpaq",
-  kk_k: "Қарақалпақ",
-  uz: "O’zbek",
-  uz_k: "Өзбек",
-};
-
-const objLangImg = {
-  en: Eng,
-  ru: Ru,
-  kk: Kk,
-  kk_k: Kk,
-  uz: Uz,
-  uz_k: Uz,
+  en: {
+    text: "English",
+    img: Eng,
+  },
+  ru: {
+    text: "Русский",
+    img: Ru,
+  },
+  kk: {
+    text: "Qaraqalpaq",
+    img: Kk,
+  },
+  kk_k: {
+    text: "Қарақалпақ",
+    img: Kk,
+  },
+  uz: {
+    text: "O’zbek",
+    img: Uz,
+  },
+  uz_k: {
+    text: "Өзбек",
+    img: Uz,
+  },
 };
 
 function SwitchLang() {
@@ -99,12 +108,12 @@ function SwitchLang() {
         <Flex align="center" gap={10}>
           <Flex align="center" gap={10}>
             <img
-              src={objLangImg[i18n.language as keyof typeof objLangImg]}
+              src={objLang[i18n.language as keyof typeof objLang].img}
               alt="eng"
               className={styles.img}
             />
             <Text className={styles.dropText}>
-              {objLang[i18n.language as keyof typeof objLang]}
+              {objLang[i18n.language as keyof typeof objLang].text}
             </Text>
           </Flex>
 
