@@ -4,6 +4,7 @@ import RootLayout from "../RootLayout/RootLayout";
 import { routePaths } from "@/shared/config/routeConfig";
 import { HomePageAsync } from "@/pages/HomePage";
 import { LeaguePageAsync } from "@/pages/LeaguePage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 
 function AppRouter() {
   return (
@@ -12,6 +13,8 @@ function AppRouter() {
         <Route path={routePaths.Home} element={<HomePageAsync />} />
         <Route path={routePaths.League} element={<LeaguePageAsync />} />
       </Route>
+
+      <Route path={routePaths.NotFound} element={<NotFoundPage />} />
     </Routes>
   );
 }

@@ -1,13 +1,8 @@
 import { memo } from "react";
-import { AntdConfigProvider } from "./Providers/AntdConfigProvider";
 import { AppRouter } from "./Providers/AppRoutes";
 
 function App() {
-  return (
-    <AntdConfigProvider>
-      <AppRouter />
-    </AntdConfigProvider>
-  );
+  return <AppRouter />;
 }
 
 export default memo(App);

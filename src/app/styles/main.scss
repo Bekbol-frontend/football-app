@@ -1,5 +1,6 @@
 @use "./vars/vars";
 @use "./reset/reset";
+@use "./mixin/mixin";
 
 body {
   font-family: var(--font-roboto);
