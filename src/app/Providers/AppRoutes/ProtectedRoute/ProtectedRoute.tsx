@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 function ProtectedRoute() {
-  const check = false;
+  const check = true;
 
   return check ? <Outlet /> : <Navigate to={routePaths.Login} replace />;
 }
