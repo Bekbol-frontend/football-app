@@ -9,5 +9,12 @@
   "Partners": "Partners",
   "Main page": "Main page",
   "Sorry, the page you visited does not exist.": "Sorry, the page you visited does not exist.",
-  "Sorry, something went wrong.": "Sorry, something went wrong."
+  "Sorry, something went wrong.": "Sorry, something went wrong.",
+  "Sign in to your account": "Sign in to your account",
+  "Start your demo version": "Start your demo version",
+  "Login": "Login",
+  "Please input your email!": "Please input your email!",
+  "Please input your password!": "Please input your password!",
+  "Successful authorization": "Successful authorization",
+  "Incorrect login or password": "Incorrect login or password"
 }

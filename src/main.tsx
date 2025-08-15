@@ -12,12 +12,15 @@ import "./shared/config/i18n";
 import "./app/styles/main.scss";
 import { AntdConfigProvider } from "./app/Providers/AntdConfigProvider/index.ts";
 import { ErrorBoundary } from "./app/Providers/ErrorBoundary/index.ts";
+import { StoreProvider } from "./app/Providers/StoreProvider/index.ts";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <AntdConfigProvider>
       <ErrorBoundary>
-        <App />
+        <StoreProvider>
+          <App />
+        </StoreProvider>
       </ErrorBoundary>
     </AntdConfigProvider>
   </BrowserRouter>

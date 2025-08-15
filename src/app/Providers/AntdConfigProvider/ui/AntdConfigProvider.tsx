@@ -12,7 +12,7 @@ function AntdConfigProvider({ children }: IProps) {
         token: {
           fontFamily: "var(--font-roboto)",
           fontSize: 15,
-          borderRadius: 3,
+          borderRadius: 4,
         },
         components: {
           Layout: {
@@ -20,9 +20,17 @@ function AntdConfigProvider({ children }: IProps) {
             headerBg: "var(--header-bg)",
             headerHeight: "var(--header-height)",
             headerPadding: "var(--header-padding)",
+            colorBgContainer: "red",
+            bodyBg: "var(--body-bg)",
           },
           Menu: {
             colorBgContainer: "transparent",
+          },
+          Input: {
+            controlHeight: 35,
+          },
+          Button: {
+            controlHeight: 35,
           },
         },
       }}

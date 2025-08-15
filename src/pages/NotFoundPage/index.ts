@@ -1,1 +1,1 @@
-export { default as NotFoundPage } from "./ui/NotFoundPage";
+export { NotFoundPageAsync } from "./ui/NotFoundPage.async";

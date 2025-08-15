@@ -1,8 +1,9 @@
-import { memo, useCallback, useState } from "react";
+import { memo, Suspense, useCallback, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import { HeaderNav } from "@/widgets/HeaderNav";
 import { Sidebar } from "@/widgets/Sidebar";
+import { PageLoading } from "@/widgets/PageLoading";
 
 const { Content } = Layout;
 
@@ -19,7 +20,9 @@ function RootLayout() {
       <Layout>
         <HeaderNav toggleCollapsed={toggleCollapsed} collapsed={collapsed} />
         <Content>
-          <Outlet />
+          <Suspense fallback={<PageLoading />}>
+            <Outlet />
+          </Suspense>
         </Content>
       </Layout>
     </Layout>

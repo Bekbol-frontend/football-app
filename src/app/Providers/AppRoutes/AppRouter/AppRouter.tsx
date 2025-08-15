@@ -7,7 +7,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 // pages
 import { HomePageAsync } from "@/pages/HomePage";
 import { LeaguePageAsync } from "@/pages/LeaguePage";
-import { NotFoundPage } from "@/pages/NotFoundPage";
+import { NotFoundPageAsync } from "@/pages/NotFoundPage";
 import { AuthLoginPageAsync } from "@/pages/AuthLoginPage";
 
 function AppRouter() {
@@ -25,7 +25,7 @@ function AppRouter() {
       <Route path={routePaths.Login} element={<AuthLoginPageAsync />} />
 
       {/* 404 not found page */}
-      <Route path={routePaths.NotFound} element={<NotFoundPage />} />
+      <Route path={routePaths.NotFound} element={<NotFoundPageAsync />} />
     </Routes>
   );
 }

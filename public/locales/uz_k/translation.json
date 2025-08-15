@@ -9,5 +9,12 @@
   "Partners": "Ҳамкорлар",
   "Main page": "Бош саҳифа",
   "Sorry, the page you visited does not exist.": "Кечирасиз, сиз ташриф буюрган саҳифа мавжуд эмас.",
-  "Sorry, something went wrong.": "Кечирасиз, нимадир хатo кетди."
+  "Sorry, something went wrong.": "Кечирасиз, нимадир хатo кетди.",
+  "Sign in to your account": "Ҳисобингизга киринг",
+  "Start your demo version": "Демо версиянгизни бошланг",
+  "Login": "Тизимга кириш",
+  "Please input your email!": "Илтимос, электрон почтангизни киритинг!",
+  "Please input your password!": "Илтимос, паролингизни киритинг!",
+  "Successful authorization": "Муваффақиятли авторизация",
+  "Incorrect login or password": "Нотўғри логин ёки парол"
 }

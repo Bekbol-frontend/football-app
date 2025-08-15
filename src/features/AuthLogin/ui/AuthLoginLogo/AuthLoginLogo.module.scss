@@ -1,0 +1,18 @@
+.logoWrapper {
+  margin-bottom: 40px;
+
+  .title {
+    font-family: var(--font-poppins);
+    font-weight: 700;
+    color: #2a3342;
+    text-align: center;
+    margin: 10px 0 15px;
+  }
+
+  .desc {
+    text-align: center;
+    color: #556987;
+    font-family: var(--font-poppins);
+    font-weight: 500;
+  }
+}

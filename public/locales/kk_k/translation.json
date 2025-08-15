@@ -9,5 +9,12 @@
   "Partners": "Шериклер",
   "Main page": "Бас бет",
   "Sorry, the page you visited does not exist.": "Кеширесиз, сиз келген бет жоқ.",
-  "Sorry, something went wrong.": "Кеширесиз, бир-неге қəте кетти."
+  "Sorry, something went wrong.": "Кеширесиз, бир-неге қəте кетти.",
+  "Sign in to your account": "Есабынгизга киринг",
+  "Start your demo version": "Демо версияңызды баслаң",
+  "Login": "Системаға кирисиў",
+  "Please input your email!": "Илтимас, електрон почтаңызды киритиң!",
+  "Please input your password!": "Илтимас, паролыңызды киритиң!",
+  "Successful authorization": "Табыслы авторизатсия",
+  "Incorrect login or password": "Надурыс логин ямаса парол"
 }
