@@ -4,6 +4,8 @@ import { Layout } from "antd";
 import { HeaderNav } from "@/widgets/HeaderNav";
 import { Sidebar } from "@/widgets/Sidebar";
 import { PageLoading } from "@/widgets/PageLoading";
+import styles from "./RootLayout.module.scss";
+import { Section } from "@/shared/ui/Section";
 
 const { Content } = Layout;
 
@@ -19,10 +21,12 @@ function RootLayout() {
       <Sidebar collapsed={collapsed} />
       <Layout>
         <HeaderNav toggleCollapsed={toggleCollapsed} collapsed={collapsed} />
-        <Content>
-          <Suspense fallback={<PageLoading />}>
-            <Outlet />
-          </Suspense>
+        <Content className={styles.content}>
+          <Section>
+            <Suspense fallback={<PageLoading />}>
+              <Outlet />
+            </Suspense>
+          </Section>
         </Content>
       </Layout>
     </Layout>

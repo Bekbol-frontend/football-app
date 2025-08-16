@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   LOCAL_STORAGE_ACCESS_TOKEN,
   LOCAL_STORAGE_REFRESH_TOKEN,
+  LOCAL_STORAGE_USER,
 } from "../consts/localStorage";
 
 export const baseURL = import.meta.env.VITE_API_URL;
@@ -34,23 +35,32 @@ API.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
       try {
         const refreshToken = localStorage.getItem(LOCAL_STORAGE_REFRESH_TOKEN);
+
         const response = await axios.post(
           "https://api.kkfa.uz/api/v1/admin/auth/refresh",
+          undefined,
           {
-            refreshToken,
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
           }
         );
-        console.log(response.data);
+
         const { access_token, refresh_token: newRefreshToken } = response.data;
+
         localStorage.setItem(LOCAL_STORAGE_ACCESS_TOKEN, access_token);
         localStorage.setItem(LOCAL_STORAGE_REFRESH_TOKEN, newRefreshToken);
+
         API.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+
         return API(originalRequest);
       } catch (refreshError) {
         localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN);
         localStorage.removeItem(LOCAL_STORAGE_REFRESH_TOKEN);
+        localStorage.removeItem(LOCAL_STORAGE_USER);
         window.location.href = "/login";
         return Promise.reject(refreshError);
       }

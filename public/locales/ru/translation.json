@@ -16,5 +16,6 @@
   "Please input your email!": "Пожалуйста, введите свой адрес электронной почты!",
   "Please input your password!": "Пожалуйста, введите свой пароль!",
   "Successful authorization": "Успешная авторизация",
-  "Incorrect login or password": "Неправильный логин или пароль"
+  "Incorrect login or password": "Неправильный логин или пароль",
+  "Add news": "Добавить новость"
 }

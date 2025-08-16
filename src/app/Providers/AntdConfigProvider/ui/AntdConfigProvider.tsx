@@ -32,6 +32,9 @@ function AntdConfigProvider({ children }: IProps) {
           Button: {
             controlHeight: 35,
           },
+          Select: {
+            controlHeight: 35,
+          },
         },
       }}
     >

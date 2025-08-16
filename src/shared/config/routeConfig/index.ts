@@ -1,5 +1,6 @@
 export enum AppRoutes {
   Home = "Home",
+  NewsCreatePage = "NewsCreatePage",
   League = "League",
   Login = "Login",
   // 404
@@ -8,6 +9,7 @@ export enum AppRoutes {
 
 export const routePaths: Record<AppRoutes, string> = {
   [AppRoutes.Home]: "/",
+  [AppRoutes.NewsCreatePage]: "/news-create",
   [AppRoutes.League]: "/league",
   [AppRoutes.Login]: "/login",
   // 404

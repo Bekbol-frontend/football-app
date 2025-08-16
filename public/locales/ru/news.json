@@ -1,0 +1,21 @@
+{
+  "Please input your title!": "Пожалуйста, введите ваш заголовок!",
+  "Please input your information!": "Пожалуйста, введите вашу информацию!",
+  "Add picture": "Добавить изображение",
+  "Publish later": "Опубликовать позже",
+  "Publish": "Публиковать",
+  "Date": "Дата",
+  "Save": "Сохранять",
+  "Add news": "Добавить новость",
+  "Title": "Заголовок",
+  "Information": "Информация",
+  "Please fill in all fields": "Пожалуйста, заполните все поля",
+  "Please add images": "Пожалуйста, добавьте изображения",
+  "Status": "Статус",
+  "Please select your status!": "Пожалуйста, выберите ваш статус!",
+  "News created successfully!": "Новость успешно создана!",
+  "File uploaded successfully!": "Файл успешно загружен!",
+  "Error uploading file!": "Ошибка при загрузке файла!",
+  "Click to Upload": "Нажмите, чтобы загрузить",
+  "Back": "Назад"
+}

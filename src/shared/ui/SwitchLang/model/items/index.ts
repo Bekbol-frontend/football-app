@@ -15,24 +15,24 @@ export const objLang: Record<string, ILangItem> = {
     img: Ru,
     key: "ru",
   },
-  kk: {
+  qq: {
     text: "Qaraqalpaq",
     img: Kk,
-    key: "kk",
+    key: "qq",
   },
-  kk_k: {
+  kk: {
     text: "Қарақалпақ",
     img: Kk,
-    key: "kk_k",
+    key: "kk",
   },
   uz: {
     text: "O’zbek",
     img: Uz,
     key: "uz",
   },
-  uz_k: {
+  oz: {
     text: "Өзбек",
     img: Uz,
-    key: "uz_k",
+    key: "oz",
   },
 };
