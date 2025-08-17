@@ -17,5 +17,11 @@
   "File uploaded successfully!": "Файл муваффақиятли юкланди!",
   "Error uploading file!": "Файлни юклашда хатолик!",
   "Click to Upload": "Юклаш учун босинг",
-  "Back": "Орқага"
+  "Back": "Орқага",
+  "Delete the task": "Вазифани ўчириш",
+  "Are you sure to delete this task?": "Ҳақиқатан ҳам бу вазифани ўчирмоқчимисиз?",
+  "Yes": "Ҳа",
+  "No": "Йўқ",
+  "News deleted successfully!": "Янгилик муваффақиятли ўчирилди!",
+  "Error deleting news!": "Янгиликни ўчиришда хатолик!"
 }

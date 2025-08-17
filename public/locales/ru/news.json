@@ -17,5 +17,11 @@
   "File uploaded successfully!": "Файл успешно загружен!",
   "Error uploading file!": "Ошибка при загрузке файла!",
   "Click to Upload": "Нажмите, чтобы загрузить",
-  "Back": "Назад"
+  "Back": "Назад",
+  "Delete the task": "Удалить задачу",
+  "Are you sure to delete this task?": "Вы уверены, что хотите удалить эту задачу?",
+  "Yes": "Да",
+  "No": "Нет",
+  "News deleted successfully!": "Новость успешно удалена!",
+  "Error deleting news!": "Ошибка при удалении новости!"
 }

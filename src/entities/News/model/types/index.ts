@@ -46,3 +46,10 @@ export interface INews {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface INewsOne {
+  title: ILang;
+  description: ILang;
+  status: NewsStatus;
+  images: string[];
+}

@@ -1,9 +1,8 @@
-import {memo} from 'react'
+import { NewsUpdate } from "@/entities/News";
+import { memo } from "react";
 
 function NewsUpdatePage() {
-  return (
-    <div>NewsUpdatePage</div>
-  )
+  return <NewsUpdate />;
 }
 
-export default memo(NewsUpdatePage)
+export default memo(NewsUpdatePage);

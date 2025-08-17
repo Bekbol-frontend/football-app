@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { DatePicker, Flex, Modal, Select, Tabs, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import type { TabsProps } from "antd";
@@ -7,7 +7,7 @@ import type { TYPE_LANG } from "@/shared/types/lang";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import NewsFormFile from "./NewsFormFile/NewsFormFile";
 import { type INewsForm, type IPostNews } from "../../model/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createNews } from "../../model/services/services-form";
 import { queryKey } from "@/shared/consts/queryKey";
 import { selectItems } from "../../model/items";
@@ -15,13 +15,18 @@ import { useNavigate } from "react-router-dom";
 import { routePaths } from "@/shared/config/routeConfig";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
+import { getNewsById } from "../../model/services/services-data";
 
 const { TextArea } = Input;
 
 const { Title } = Typography;
 const { Option } = Select;
 
-function NewsForm() {
+interface IProps {
+  id?: string;
+}
+
+function NewsForm({ id }: IProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeLang, setActiveLang] = useState<TYPE_LANG>("en");
   const [images, setImages] = useState<string[]>([]);
@@ -41,6 +46,22 @@ function NewsForm() {
     setIsModalOpen(false);
     setPublishedDate(null);
   }, []);
+
+  const { data } = useQuery({
+    queryKey: [queryKey.news],
+    queryFn: () => getNewsById(id),
+    enabled: !!id,
+  });
+
+  useEffect(() => {
+    if(data?.data) {
+      form.setFieldsValue({
+        title: data.data.title,
+        description: data.data.description,
+        status: data.data.status
+      });
+    }
+  },[data])
 
   const mutation = useMutation({
     mutationFn: createNews,

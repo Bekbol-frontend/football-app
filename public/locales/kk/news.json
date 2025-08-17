@@ -17,5 +17,11 @@
   "File uploaded successfully!": "Файл табыслы жүкленди!",
   "Error uploading file!": "Файлды жүклеўде қәтелик!",
   "Click to Upload": "Жүклеў ушын басың",
-  "Back": "Арқаға"
+  "Back": "Арқаға",
+  "Delete the task": "Уазыйпаны өшириў",
+  "Are you sure to delete this task?": "Бул уазыйпаны өшириўге исенимиңиз кәмил ме?",
+  "Yes": "Әўеже",
+  "No": "Жоқ",
+  "News deleted successfully!": "Жаңалық табыслы өширилди!",
+  "Error deleting news!": "Жаңалықты өшириўде қәтелик!"
 }

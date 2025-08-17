@@ -16,5 +16,10 @@
   "File uploaded successfully!": "Fayl muvaffaqiyatli yuklandi!",
   "Error uploading file!": "Faylni yuklashda xatolik!",
   "Click to Upload": "Yuklash uchun bosing",
-  "Back": "Orqaga"
+  "Back": "Orqaga",
+  "Delete the task": "Haqiqatan ham bu vazifani o'chirmoqchimisiz?",
+  "Yes": "Ha",
+  "No": "Yo'q",
+  "News deleted successfully!": "Yangilik muvaffaqiyatli o'chirildi!",
+  "Error deleting news!": "Yangilikni o'chirishda xatolik!"
 }

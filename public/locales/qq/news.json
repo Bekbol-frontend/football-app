@@ -17,5 +17,11 @@
   "File uploaded successfully!": "Fayl tabıslı júklendi!",
   "Error uploading file!": "Fayldı júklewde qátelik!",
   "Click to Upload": "Júklew ushın basıń",
-  "Back": "Arqaǵa"
+  "Back": "Arqaǵa",
+  "Delete the task": "Wazıypanı óshiriw",
+  "Are you sure to delete this task?": "Bul wazıypanı óshiriwge isenimińiz kámil me?",
+  "Yes": "Áweje",
+  "No": "Joq",
+  "News deleted successfully!": "Jańalıq tabıslı óshirildi!",
+  "Error deleting news!": "Jańalıqtı óshiriwde qátelik!"
 }

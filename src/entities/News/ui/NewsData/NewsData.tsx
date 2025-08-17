@@ -1,8 +1,8 @@
 import { queryKey } from "@/shared/consts/queryKey";
-import { useQuery } from "@tanstack/react-query";
-import { memo, useEffect } from "react";
-import { getNews } from "../../model/services/services-data";
-import { Button, Card, Flex, Input, Space, Table, Tag } from "antd";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { memo, useCallback, useEffect, useState } from "react";
+import { deleteNews, getNews } from "../../model/services/services-data";
+import { Button, Card, Flex, Input, Popconfirm, Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { NewsStatus, type INews } from "../../model/types";
 import { useTranslation } from "react-i18next";
@@ -18,22 +18,55 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { routePaths } from "@/shared/config/routeConfig";
 
 function NewsData() {
+  const [id, setId] = useState<number | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("news");
   const message = useMessageApi();
 
   const searchParamsVal = searchParams.get("search") || "";
   const pageParams = searchParams.get("page") || "1";
   const searchVal = useDebounce(searchParamsVal, 500);
 
+  const queryClient = useQueryClient();
+
   const { data, isLoading, isError } = useQuery({
     queryKey: [queryKey.news, pageParams, i18n.language, searchVal],
     queryFn: () => getNews(i18n.language, pageParams, searchVal),
   });
 
+  const { mutate: deleteMutate, isPending } = useMutation({
+    mutationFn: deleteNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey.news] });
+      message.open({
+        type: "success",
+        content: t("News deleted successfully!"),
+      });
+    },
+    onError: () => {
+      message.open({
+        type: "error",
+        content: t("Error deleting news!"),
+      });
+    },
+  });
+
+  const onClickDeleteNews = useCallback(
+    (id: number) => {
+      setId(id);
+      deleteMutate(id);
+    },
+    [deleteMutate]
+  );
+
   const columns: TableProps<INews>["columns"] = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
     {
       title: "Title",
       dataIndex: "title",
@@ -85,7 +118,20 @@ function NewsData() {
       key: "action",
       render: (_, record) => (
         <Space size="small">
-          <Button type="primary" danger icon={<DeleteOutlined />} />
+          <Popconfirm
+            title={t("Delete the task")}
+            description={t("Are you sure to delete this task?")}
+            onConfirm={() => onClickDeleteNews(record.id)}
+            okText={t("Yes")}
+            cancelText={t("No")}
+          >
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              loading={id === record.id && isPending}
+            />
+          </Popconfirm>
           <Button
             type="primary"
             icon={<EditOutlined />}
