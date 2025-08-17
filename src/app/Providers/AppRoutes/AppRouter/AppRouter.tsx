@@ -10,6 +10,7 @@ import { LeaguePageAsync } from "@/pages/LeaguePage";
 import { NotFoundPageAsync } from "@/pages/NotFoundPage";
 import { AuthLoginPageAsync } from "@/pages/AuthLoginPage";
 import { NewsCreatePageAsync } from "@/pages/NewsCreatePage";
+import { NewsUpdatePageAsync } from "@/pages/NewsUpdatePage";
 
 function AppRouter() {
   return (
@@ -19,6 +20,7 @@ function AppRouter() {
         <Route element={<RootLayout />}>
           <Route path={routePaths.Home} element={<HomePageAsync />} />
           <Route path={routePaths.NewsCreatePage} element={<NewsCreatePageAsync />} />
+          <Route path={`${routePaths.NewsUpdatePage}/:id`} element={<NewsUpdatePageAsync />} />
           <Route path={routePaths.League} element={<LeaguePageAsync />} />
         </Route>
       </Route>

@@ -214,7 +214,7 @@ function NewsForm() {
           <NewsFormFile setImages={setImages} />
         </Form.Item>
 
-        <Flex gap={10}>
+        <Flex gap={3}>
           <Button type="primary" htmlType="button" onClick={showModal}>
             {t("Publish later")}
           </Button>
