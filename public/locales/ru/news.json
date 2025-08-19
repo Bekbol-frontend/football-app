@@ -23,5 +23,6 @@
   "Yes": "Да",
   "No": "Нет",
   "News deleted successfully!": "Новость успешно удалена!",
-  "Error deleting news!": "Ошибка при удалении новости!"
+  "Error deleting news!": "Ошибка при удалении новости!",
+  "Update news": "Обновить новости"
 }

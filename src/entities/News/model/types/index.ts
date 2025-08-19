@@ -10,7 +10,7 @@ interface ILang {
 export interface INewsForm {
   title: ILang;
   description: ILang;
-  status: string;
+  status: NewsStatus;
   publishedAt: string | string[];
 }
 

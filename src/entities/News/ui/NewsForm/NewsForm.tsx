@@ -1,14 +1,14 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { DatePicker, Flex, Modal, Select, Tabs, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import type { TabsProps } from "antd";
-import { Button, Form, Input } from "antd";
+import { Button, Form } from "antd";
 import type { TYPE_LANG } from "@/shared/types/lang";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import NewsFormFile from "./NewsFormFile/NewsFormFile";
-import { type INewsForm, type IPostNews } from "../../model/types";
+import { NewsStatus, type INewsForm, type IPostNews } from "../../model/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createNews } from "../../model/services/services-form";
+import { createNews, updateNews } from "../../model/services/services-form";
 import { queryKey } from "@/shared/consts/queryKey";
 import { selectItems } from "../../model/items";
 import { useNavigate } from "react-router-dom";
@@ -16,8 +16,8 @@ import { routePaths } from "@/shared/config/routeConfig";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import { getNewsById } from "../../model/services/services-data";
-
-const { TextArea } = Input;
+import { PageLoading } from "@/widgets/PageLoading";
+import FormItemTab from "./FormItemTab/FormItemTab";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -34,7 +34,7 @@ function NewsForm({ id }: IProps) {
 
   const queryClient = useQueryClient();
   const { t } = useTranslation("news");
-  const [form] = Form.useForm<INewsForm>();
+  const [form] = Form.useForm();
   const message = useMessageApi();
   const navigate = useNavigate();
 
@@ -47,21 +47,26 @@ function NewsForm({ id }: IProps) {
     setPublishedDate(null);
   }, []);
 
-  const { data } = useQuery({
-    queryKey: [queryKey.news],
+  const { data, isLoading, isFetching } = useQuery({
+    queryKey: [queryKey.news, id],
     queryFn: () => getNewsById(id),
     enabled: !!id,
   });
 
   useEffect(() => {
-    if(data?.data) {
+    if (!isLoading && !isFetching && data?.data) {
       form.setFieldsValue({
         title: data.data.title,
         description: data.data.description,
-        status: data.data.status
+        status: data.data.status,
       });
+      setImages(data.data.images);
     }
-  },[data])
+
+    return () => {
+      form.resetFields();
+    };
+  }, [data, form, isLoading, isFetching]);
 
   const mutation = useMutation({
     mutationFn: createNews,
@@ -81,7 +86,26 @@ function NewsForm({ id }: IProps) {
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: updateNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey.news] });
+      message.open({
+        type: "success",
+        content: t("News updated successfully!"),
+      });
+      navigate(routePaths.Home);
+    },
+    onError: (error) => {
+      message.open({
+        type: "error",
+        content: error.message,
+      });
+    },
+  });
+
   const { isPending, isError } = mutation;
+  const { isPending: isPendingUpdate, isError: isErrorUpdate } = updateMutation;
 
   const onTabChange = (key: string) => {
     setActiveLang(key as TYPE_LANG);
@@ -140,80 +164,76 @@ function NewsForm({ id }: IProps) {
         : new Date().toISOString(),
     };
 
+    if (id) {
+      updateMutation.mutate({ id, data });
+      return;
+    }
+
     mutation.mutate(data);
-  }, [form, message, t, images, mutation, publishedDate]);
+  }, [form, message, t, images, mutation, publishedDate, updateMutation, id]);
 
-  const childrenElementFormItem = (lang: TYPE_LANG) => {
-    return (
-      <>
-        <Form.Item<INewsForm>
-          label={t("Title")}
-          name={["title", lang]}
-          rules={[{ required: true, message: t("Please input your title!") }]}
-        >
-          <Input />
-        </Form.Item>
+  const items: TabsProps["items"] = useMemo(
+    () => [
+      {
+        key: "en",
+        label: "English",
+        children: <FormItemTab lang="en" />,
+      },
+      {
+        key: "ru",
+        label: "Русский",
+        children: <FormItemTab lang="ru" />,
+      },
+      {
+        key: "qq",
+        label: "Qaraqalpaq",
+        children: <FormItemTab lang="qq" />,
+      },
+      {
+        key: "kk",
+        label: "Қарақалпақ",
+        children: <FormItemTab lang="kk" />,
+      },
+      {
+        key: "uz",
+        label: "O'zbek",
+        children: <FormItemTab lang="uz" />,
+      },
+      {
+        key: "oz",
+        label: "Өзбек",
+        children: <FormItemTab lang="oz" />,
+      },
+    ],
+    []
+  );
 
-        <Form.Item<INewsForm>
-          label={t("Information")}
-          name={["description", lang]}
-          rules={[
-            { required: true, message: t("Please input your information!") },
-          ]}
-        >
-          <TextArea rows={4} />
-        </Form.Item>
-      </>
-    );
-  };
-
-  const items: TabsProps["items"] = [
-    {
-      key: "en",
-      label: "English",
-      children: childrenElementFormItem("en"),
-    },
-    {
-      key: "ru",
-      label: "Русский",
-      children: childrenElementFormItem("ru"),
-    },
-    {
-      key: "qq",
-      label: "Qaraqalpaq",
-      children: childrenElementFormItem("qq"),
-    },
-    {
-      key: "kk",
-      label: "Қарақалпақ",
-      children: childrenElementFormItem("kk"),
-    },
-    {
-      key: "uz",
-      label: "O'zbek",
-      children: childrenElementFormItem("uz"),
-    },
-    {
-      key: "oz",
-      label: "Өзбек",
-      children: childrenElementFormItem("oz"),
-    },
-  ];
+  if (isLoading || isFetching) return <PageLoading />;
 
   return (
     <div>
-      <Title level={2}>{t("Add news")}</Title>
+      <Title level={2}>{t(id ? "Update news" : "Add news")}</Title>
 
       <Form
-        name="news-form"
+        name={id ? "news-update" : "news-create"}
         onFinish={onSubmitForm}
         layout="vertical"
         form={form}
+        initialValues={{
+          status: NewsStatus.DRAFT,
+        }}
       >
         <Tabs
           type="card"
           activeKey={activeLang}
-          items={items}
+          items={
+            id
+              ? items.map((item) => ({
+                  ...item,
+                  forceRender: true,
+                }))
+              : items
+          }
           onChange={onTabChange}
         />
 
@@ -232,7 +252,7 @@ function NewsForm({ id }: IProps) {
         </Form.Item>
 
         <Form.Item>
-          <NewsFormFile setImages={setImages} />
+          <NewsFormFile setImages={setImages} images={images} />
         </Form.Item>
 
         <Flex gap={3}>
@@ -242,8 +262,8 @@ function NewsForm({ id }: IProps) {
           <Button
             type="primary"
             htmlType="submit"
-            loading={isPending}
-            danger={isError}
+            loading={isPending || isPendingUpdate}
+            danger={isError || isErrorUpdate}
           >
             {t("Publish")}
           </Button>
@@ -273,7 +293,11 @@ function NewsForm({ id }: IProps) {
             }}
           />
 
-          <Button onClick={onSubmitForm} loading={isPending} danger={isError}>
+          <Button
+            onClick={onSubmitForm}
+            loading={isPending || isPendingUpdate}
+            danger={isError || isErrorUpdate}
+          >
             {t("Publish")}
           </Button>
         </Flex>

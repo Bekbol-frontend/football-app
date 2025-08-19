@@ -21,5 +21,6 @@
   "Yes": "Ha",
   "No": "Yo'q",
   "News deleted successfully!": "Yangilik muvaffaqiyatli o'chirildi!",
-  "Error deleting news!": "Yangilikni o'chirishda xatolik!"
+  "Error deleting news!": "Yangilikni o'chirishda xatolik!",
+  "Update news": "Yangiliklarni yangilash"
 }
