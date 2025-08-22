@@ -1,0 +1,23 @@
+{
+  "Stadium": "Stadium",
+  "Stadium deleted successfully!": "Stadium deleted successfully!",
+  "Name": "Name",
+  "Address": "Address",
+  "City": "City",
+  "Action": "Action",
+  "Delete the task": "Delete the task",
+  "Are you sure to delete this task?": "Are you sure to delete this task?",
+  "Yes": "Yes",
+  "No": "No",
+  "Stadium created successfully!": "Stadium created successfully!",
+  "Stadium updated successfully!": "Stadium updated successfully!",
+  "Please fill in the name in": "Please fill in the name in",
+  "Edit stadium": "Edit stadium",
+  "Create stadium": "Create stadium",
+  "Edit": "Edit",
+  "Create": "Create",
+  "Please input your name!": "Please input your name!",
+  "Please input your address!": "Please input your address!",
+  "Please input your city!": "Please input your city!",
+  "Back": "Back"
+}

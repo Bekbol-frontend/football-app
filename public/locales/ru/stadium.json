@@ -1,0 +1,23 @@
+{
+  "Stadium": "Стадион",
+  "Stadium deleted successfully!": "Стадион успешно удален!",
+  "Name": "Название",
+  "Address": "Адрес",
+  "City": "Город",
+  "Action": "Действие",
+  "Delete the task": "Удалить задачу",
+  "Are you sure to delete this task?": "Вы уверены, что хотите удалить эту задачу?",
+  "Yes": "Да",
+  "No": "Нет",
+  "Stadium created successfully!": "Стадион успешно создан!",
+  "Stadium updated successfully!": "Стадион успешно обновлен!",
+  "Please fill in the name in": "Пожалуйста, заполните название",
+  "Edit stadium": "Редактировать стадион",
+  "Create stadium": "Создать стадион",
+  "Edit": "Редактировать",
+  "Create": "Создать",
+  "Please input your name!": "Пожалуйста, введите ваше имя!",
+  "Please input your address!": "Пожалуйста, введите ваш адрес!",
+  "Please input your city!": "Пожалуйста, введите ваш город!",
+  "Back": "Назад"
+}

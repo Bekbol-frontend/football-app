@@ -35,7 +35,7 @@ function HeaderSection(props: IProps) {
         {title}
       </Title>
       <Button type="primary" icon={<PlusOutlined />} onClick={onChangePage}>
-        {t("Add news")}
+        {t("Create")}
       </Button>
     </Flex>
   );

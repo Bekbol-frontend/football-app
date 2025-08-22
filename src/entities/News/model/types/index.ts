@@ -1,11 +1,4 @@
-interface ILang {
-  en: string;
-  ru: string;
-  qq: string;
-  kk: string;
-  uz: string;
-  oz: string;
-}
+import type { ILang } from "@/shared/types/lang";
 
 export interface INewsForm {
   title: ILang;

@@ -1,0 +1,20 @@
+{
+  "League": "Liga",
+  "League deleted successfully!": "Liga tabıslı óshirildi!",
+  "Error deleting league!": "Liga óshiriwde qátelik!",
+  "Delete the task": "Wazıypanı óshiriw",
+  "Are you sure to delete this task?": "Bul wazıypanı óshiriwge isenimińiz kámil me?",
+  "Yes": "Áweje",
+  "No": "Joq",
+  "League created successfully!": "Liga tabıslı jaratıldı!",
+  "Error creating league!": "Liga jaratıwda qátelik!",
+  "League updated successfully!": "Liga tabıslı jańalandı!",
+  "Error updating league!": "Liganı jańalawda qátelik!",
+  "Please fill in all fields": "Iltimas, barlıq maydanlardı toldırıń",
+  "Please upload a logo": "Iltimas, logotip júkleń",
+  "Update league": "Liganı jańalaw",
+  "Create league": "Liga jaratıw",
+  "Update": "Jańalaw",
+  "Back": "Arqaǵa",
+  "Create": "Jaratıw"
+}

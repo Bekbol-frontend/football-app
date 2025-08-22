@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import { FileTextOutlined, TrophyOutlined } from "@ant-design/icons";
+import { BankOutlined, FileTextOutlined, TrophyOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
@@ -23,6 +23,16 @@ function SidebarMenu() {
       key: routePaths.League,
       icon: <TrophyOutlined />,
       label: <Link to={routePaths.League}>{t("League")}</Link>,
+    },
+    {
+      key: routePaths.Subleague,
+      icon: <TrophyOutlined />,
+      label: <Link to={routePaths.Subleague}>{t("Subleague")}</Link>,
+    },
+    {
+      key: routePaths.StadiumPage,
+      icon: <BankOutlined />,
+      label: <Link to={routePaths.StadiumPage}>{t("Stadium")}</Link>,
     },
   ];
 

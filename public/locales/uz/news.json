@@ -18,8 +18,10 @@
   "Click to Upload": "Yuklash uchun bosing",
   "Back": "Orqaga",
   "Delete the task": "Haqiqatan ham bu vazifani o'chirmoqchimisiz?",
+  "Are you sure to delete this task?": "Haqiqatan ham bu vazifani oʻchirib tashlamoqchimisiz?",
   "Yes": "Ha",
   "No": "Yo'q",
+  "Search": "Qidirish",
   "News deleted successfully!": "Yangilik muvaffaqiyatli o'chirildi!",
   "Error deleting news!": "Yangilikni o'chirishda xatolik!",
   "Update news": "Yangiliklarni yangilash"

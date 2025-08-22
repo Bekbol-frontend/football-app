@@ -1,6 +1,6 @@
 import { queryKey } from "@/shared/consts/queryKey";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { deleteNews, getNews } from "../../model/services/services-data";
 import { Button, Card, Flex, Input, Popconfirm, Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
@@ -26,14 +26,22 @@ function NewsData() {
   const message = useMessageApi();
 
   const searchParamsVal = searchParams.get("search") || "";
-  const pageParams = searchParams.get("page") || "1";
+  const pageParamsVal = searchParams.get("page") || "1";
+  const pageSizeParamsVal = searchParams.get("limit") || "10";
   const searchVal = useDebounce(searchParamsVal, 500);
 
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [queryKey.news, pageParams, i18n.language, searchVal],
-    queryFn: () => getNews(i18n.language, pageParams, searchVal),
+    queryKey: [
+      queryKey.news,
+      pageSizeParamsVal,
+      pageParamsVal,
+      i18n.language,
+      searchVal,
+    ],
+    queryFn: () =>
+      getNews(pageSizeParamsVal, i18n.language, pageParamsVal, searchVal),
   });
 
   const { mutate: deleteMutate, isPending } = useMutation({
@@ -61,88 +69,92 @@ function NewsData() {
     [deleteMutate]
   );
 
-  const columns: TableProps<INews>["columns"] = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      title: "Title",
-      dataIndex: "title",
-      key: "title",
-    },
-    {
-      title: "Information",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
-      title: "Date",
-      dataIndex: "description",
-      key: "description",
-      render: (_, record) => formatDate(record.publishedAt),
-      sorter: (a, b) => a.publishedAt.localeCompare(b.publishedAt),
-    },
-    {
-      title: "Posted",
-      dataIndex: "author",
-      key: "author",
-      render: (_, record) => record.author.name,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (_, { status }) => (
-        <Tag
-          color={
-            status === NewsStatus.DRAFT
-              ? "blue"
-              : status === NewsStatus.PUBLISHED
-              ? "green"
-              : status === NewsStatus.ARCHIVED
-              ? "geekblue"
-              : status === NewsStatus.DELETED
-              ? "error"
-              : "orange"
-          }
-        >
-          {status}
-        </Tag>
-      ),
-      sorter: (a, b) => a.status.localeCompare(b.status),
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="small">
-          <Popconfirm
-            title={t("Delete the task")}
-            description={t("Are you sure to delete this task?")}
-            onConfirm={() => onClickDeleteNews(record.id)}
-            okText={t("Yes")}
-            cancelText={t("No")}
+  const columns: TableProps<INews>["columns"] = useMemo(
+    () => [
+      {
+        title: "ID",
+        dataIndex: "id",
+        key: "id",
+      },
+      {
+        title: "Title",
+        dataIndex: "title",
+        key: "title",
+      },
+      {
+        title: "Information",
+        dataIndex: "description",
+        key: "description",
+      },
+      {
+        title: "Date",
+        dataIndex: "description",
+        key: "description",
+        render: (_, record) => formatDate(record.publishedAt),
+        sorter: (a, b) => a.publishedAt.localeCompare(b.publishedAt),
+      },
+      {
+        title: "Posted",
+        dataIndex: "author",
+        key: "author",
+        render: (_, record) => record.author.name,
+      },
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        render: (_, { status }) => (
+          <Tag
+            color={
+              status === NewsStatus.DRAFT
+                ? "blue"
+                : status === NewsStatus.PUBLISHED
+                ? "green"
+                : status === NewsStatus.ARCHIVED
+                ? "geekblue"
+                : status === NewsStatus.DELETED
+                ? "error"
+                : "orange"
+            }
           >
+            {status}
+          </Tag>
+        ),
+        sorter: (a, b) => a.status.localeCompare(b.status),
+      },
+      {
+        title: "Action",
+        key: "action",
+        width: 150,
+        render: (_, record) => (
+          <Space size="small">
+            <Popconfirm
+              title={t("Delete the task")}
+              description={t("Are you sure to delete this task?")}
+              onConfirm={() => onClickDeleteNews(record.id)}
+              okText={t("Yes")}
+              cancelText={t("No")}
+            >
+              <Button
+                type="primary"
+                danger
+                icon={<DeleteOutlined />}
+                loading={id === record.id && isPending}
+              />
+            </Popconfirm>
             <Button
               type="primary"
-              danger
-              icon={<DeleteOutlined />}
-              loading={id === record.id && isPending}
+              icon={<EditOutlined />}
+              onClick={() => {
+                navigate(`${routePaths.NewsUpdatePage}/${record.id}`);
+              }}
             />
-          </Popconfirm>
-          <Button
-            type="primary"
-            icon={<EditOutlined />}
-            onClick={() => {
-              navigate(`${routePaths.NewsUpdatePage}/${record.id}`);
-            }}
-          />
-        </Space>
-      ),
-    },
-  ];
+          </Space>
+        ),
+      },
+    ],
+    [id, isPending, navigate, onClickDeleteNews, t]
+  );
 
   useEffect(() => {
     if (isError) message.error("Error");
@@ -161,16 +173,15 @@ function NewsData() {
             justifyContent: "flex-end",
             width: 250,
           }}
-          placeholder="Search"
+          placeholder={t("Search")}
           prefix={<SearchOutlined />}
           value={searchParamsVal}
           onChange={(e) => {
             const val = e.target.value;
-            if (val) {
-              setSearchParams({ search: val });
-            } else {
-              setSearchParams({});
-            }
+            setSearchParams({
+              search: val,
+              limit: pageSizeParamsVal,
+            });
           }}
         />
       </Flex>
@@ -181,13 +192,17 @@ function NewsData() {
         rowKey="id"
         loading={isLoading}
         pagination={{
+          current: Number(pageParamsVal),
+          pageSize: Number(pageSizeParamsVal),
           total: data?.data.meta.totalItems,
-          pageSize: 5,
-          current: Number(pageParams),
-        }}
-        onChange={(obj) => {
-          const { current } = obj;
-          setSearchParams({ page: current?.toString() || "1" });
+          showSizeChanger: true,
+          onChange: (page, pageSize) => {
+            setSearchParams({
+              page: page.toString() || "1",
+              limit: pageSize.toString() || "10",
+              search: searchParamsVal,
+            });
+          },
         }}
       />
     </Card>

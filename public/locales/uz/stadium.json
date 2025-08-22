@@ -1,0 +1,23 @@
+{
+  "Stadium": "Stadion",
+  "Stadium deleted successfully!": "Stadion muvaffaqiyatli o'chirildi!",
+  "Name": "Nomi",
+  "Address": "Manzili",
+  "City": "Shahar",
+  "Action": "Harakat",
+  "Delete the task": "Vazifani o'chirish",
+  "Are you sure to delete this task?": "Ushbu vazifani o'chirishga ishonchingiz komilmi?",
+  "Yes": "Ha",
+  "No": "Yo'q",
+  "Stadium created successfully!": "Stadion muvaffaqiyatli yaratildi!",
+  "Stadium updated successfully!": "Stadion muvaffaqiyatli yangilandi!",
+  "Please fill in the name in": "Iltimos, nomini kiriting",
+  "Edit stadium": "Stadionni tahrirlash",
+  "Create stadium": "Stadion yaratish",
+  "Edit": "Tahrirlash",
+  "Create": "Yaratish",
+  "Please input your name!": "Iltimos, ismingizni kiriting!",
+  "Please input your address!": "Iltimos, manzilingizni kiriting!",
+  "Please input your city!": "Iltimos, shahringizni kiriting!",
+  "Back": "Orqaga"
+}

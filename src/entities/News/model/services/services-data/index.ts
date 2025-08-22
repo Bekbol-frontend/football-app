@@ -1,10 +1,15 @@
 import API from "@/shared/api";
 import type { INews, INewsOne } from "../../types";
 
-export const getNews = async (lang: string, page: string, search: string) => {
+export const getNews = async (
+  limit: string,
+  lang: string,
+  page: string,
+  search: string
+) => {
   const params: Record<string, string> = {
     page,
-    limit: "5",
+    limit: limit,
   };
 
   if (search) {
@@ -36,6 +41,6 @@ export const getNewsById = async (id?: string) => {
   return API.get<INewsOne>(`/api/v1/admin/news/${id}`, {
     headers: {
       "Cache-Control": "no-cache",
-    }
+    },
   });
-}
+};

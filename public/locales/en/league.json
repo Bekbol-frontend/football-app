@@ -1,0 +1,20 @@
+{
+  "League": "League",
+  "League deleted successfully!": "League deleted successfully!",
+  "Error deleting league!": "Error deleting league!",
+  "Delete the task": "Delete the task",
+  "Are you sure to delete this task?": "Are you sure to delete this task?",
+  "Yes": "Yes",
+  "No": "No",
+  "League created successfully!": "League created successfully!",
+  "Error creating league!": "Error creating league!",
+  "League updated successfully!": "League updated successfully!",
+  "Error updating league!": "Error updating league!",
+  "Please fill in all fields": "Please fill in all fields",
+  "Please upload a logo": "Please upload a logo",
+  "Update league": "Update league",
+  "Create league": "Create league",
+  "Update": "Update",
+  "Create": "Create",
+  "Back": "Back"
+}

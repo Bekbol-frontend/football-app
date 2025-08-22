@@ -1,0 +1,20 @@
+{
+  "League": "Лига",
+  "League deleted successfully!": "Лига табыслы өширилди!",
+  "Error deleting league!": "Лига өшириўде қәтелик!",
+  "Delete the task": "Уазыйпаны өшириў",
+  "Are you sure to delete this task?": "Бул уазыйпаны өшириўге исенимиңиз кәмил ме?",
+  "Yes": "Әўеже",
+  "No": "Жоқ",
+  "League created successfully!": "Лига табыслы жаратылды!",
+  "Error creating league!": "Лига жаратыўда қәтелик!",
+  "League updated successfully!": "Лига табыслы жаңалаңды!",
+  "Error updating league!": "Лиганы жаңалаўда қәтелик!",
+  "Please fill in all fields": "Илтимас, барлық майданларды толтырың",
+  "Please upload a logo": "Илтимас, логотип жүклең",
+  "Update league": "Лиганы жаңалаў",
+  "Create league": "Лига жаратыў",
+  "Update": "Жаңалаў",
+  "Create": "Жаратыў",
+  "Back": "Арқаға"
+}

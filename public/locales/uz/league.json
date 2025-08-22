@@ -1,0 +1,20 @@
+{
+  "League": "Liga",
+  "League deleted successfully!": "Liga muvaffaqiyatli oʻchirildi!",
+  "Error deleting league!": "Ligani o'chirishda xatolik yuz berdi!",
+  "Delete the task": "Haqiqatan ham bu vazifani o'chirmoqchimisiz?",
+  "Are you sure to delete this task?": "Haqiqatan ham bu vazifani oʻchirib tashlamoqchimisiz?",
+  "Yes": "Ha",
+  "No": "Yo'q",
+  "League created successfully!": "Liga muvaffaqiyatli yaratildi!",
+  "Error creating league!": "Ligani yaratishda xatolik yuz berdi!",
+  "League updated successfully!": "Liga muvaffaqiyatli yangilandi!",
+  "Error updating league!": "Ligani yangilashda xatolik yuz berdi!",
+  "Please fill in all fields": "Iltimos, barcha maydonlarni toʻldiring",
+  "Please upload a logo": "Iltimos, logotip yuklang",
+  "Update league": "Ligani yangilash",
+  "Create league": "Liga yaratish",
+  "Update": "Yangilash",
+  "Create": "Yaratish",
+  "Back": "Orqaga"
+}

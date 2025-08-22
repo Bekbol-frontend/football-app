@@ -1,0 +1,23 @@
+{
+  "Stadium": "Стадион",
+  "Stadium deleted successfully!": "Стадион табыслы өширилди!",
+  "Name": "Аты",
+  "Address": "Адреси",
+  "City": "Қала",
+  "Action": "Ҳәрекет",
+  "Delete the task": "Ўазыйпаны өшириў",
+  "Are you sure to delete this task?": "Бул ўазыйпаны өшириўге исенимиңиз кәмил ме?",
+  "Yes": "Әўе",
+  "No": "Яқ",
+  "Stadium created successfully!": "Стадион табыслы жаратылды!",
+  "Stadium updated successfully!": "Стадион табыслы жаңалаңды!",
+  "Please fill in the name in": "Атын толтырың",
+  "Edit stadium": "Стадионды редакторлаў",
+  "Create stadium": "Стадион жаратыў",
+  "Edit": "Редакторлаў",
+  "Create": "Жаратыў",
+  "Please input your name!": "Атыңызды киритиң!",
+  "Please input your address!": "Адресиңизди киритиң!",
+  "Please input your city!": "Қалаңызды киритиң!",
+   "Back": "Арқаға"
+}

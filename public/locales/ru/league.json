@@ -1,0 +1,20 @@
+{
+  "League": "Лига",
+  "League deleted successfully!": "Лига успешно удалена!",
+  "Error deleting league!": "Ошибка при удалении лиги!",
+  "Delete the task": "Удалить задачу",
+  "Are you sure to delete this task?": "Вы уверены, что хотите удалить эту задачу?",
+  "Yes": "Да",
+  "No": "Нет",
+  "League created successfully!": "Лига успешно создана!",
+  "Error creating league!": "Ошибка при создании лиги!",
+  "League updated successfully!": "Лига успешно обновлена!",
+  "Error updating league!": "Ошибка при обновлении лиги!",
+  "Please fill in all fields": "Пожалуйста, заполните все поля",
+  "Please upload a logo": "Пожалуйста, загрузите логотип",
+  "Update league": "Обновить лигу",
+  "Create league": "Создать лигу",
+  "Update": "Обновить",
+  "Create": "Создать",
+  "Back": "Назад"
+}

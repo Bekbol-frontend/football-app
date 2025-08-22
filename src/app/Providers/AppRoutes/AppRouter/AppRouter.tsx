@@ -11,6 +11,12 @@ import { NotFoundPageAsync } from "@/pages/NotFoundPage";
 import { AuthLoginPageAsync } from "@/pages/AuthLoginPage";
 import { NewsCreatePageAsync } from "@/pages/NewsCreatePage";
 import { NewsUpdatePageAsync } from "@/pages/NewsUpdatePage";
+import { LeagueCreatePageAsync } from "@/pages/LeagueCreatePage";
+import { LeagueUpdatePageAsync } from "@/pages/LeagueUpdatePage";
+import { SubleaguePageAsync } from "@/pages/SubleaguePage";
+import { StadiumPageAsync } from "@/pages/StadiumPage";
+import { StadiumCreatePageAsync } from "@/pages/StadiumCreatePage";
+import { StadiumUpdatePageAsync } from "@/pages/StadiumUpdatePage";
 
 function AppRouter() {
   return (
@@ -19,9 +25,33 @@ function AppRouter() {
       <Route element={<ProtectedRoute />}>
         <Route element={<RootLayout />}>
           <Route path={routePaths.Home} element={<HomePageAsync />} />
-          <Route path={routePaths.NewsCreatePage} element={<NewsCreatePageAsync />} />
-          <Route path={`${routePaths.NewsUpdatePage}/:id`} element={<NewsUpdatePageAsync />} />
+          <Route
+            path={routePaths.NewsCreatePage}
+            element={<NewsCreatePageAsync />}
+          />
+          <Route
+            path={`${routePaths.NewsUpdatePage}/:id`}
+            element={<NewsUpdatePageAsync />}
+          />
           <Route path={routePaths.League} element={<LeaguePageAsync />} />
+          <Route
+            path={routePaths.LeagueCreate}
+            element={<LeagueCreatePageAsync />}
+          />
+          <Route
+            path={`${routePaths.LeagueUpdate}/:id`}
+            element={<LeagueUpdatePageAsync />}
+          />
+          <Route path={routePaths.Subleague} element={<SubleaguePageAsync />} />
+          <Route path={routePaths.StadiumPage} element={<StadiumPageAsync />} />
+          <Route
+            path={routePaths.StadiumCreatePage}
+            element={<StadiumCreatePageAsync />}
+          />
+          <Route
+            path={`${routePaths.StadiumUpdatePage}/:id`}
+            element={<StadiumUpdatePageAsync />}
+          />
         </Route>
       </Route>
 

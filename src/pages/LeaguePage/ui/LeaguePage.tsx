@@ -1,7 +1,8 @@
+import { League } from "@/entities/League";
 import { memo } from "react";
 
 function LeaguePage() {
-  return <div>LeaguePage</div>;
+  return <League />;
 }
 
 export default memo(LeaguePage);
