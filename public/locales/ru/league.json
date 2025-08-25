@@ -16,5 +16,8 @@
   "Create league": "Создать лигу",
   "Update": "Обновить",
   "Create": "Создать",
-  "Back": "Назад"
+  "Back": "Назад",
+  "Action": "Действие",
+  "Name league": "Название лиги",
+  "Please input your league!": "Пожалуйста, введите вашу лигу!"
 }

@@ -22,8 +22,9 @@
   "Are you sure to delete this task?": "Ҳақиқатан ҳам бу вазифани ўчирмоқчимисиз?",
   "Yes": "Ҳа",
   "No": "Йўқ",
-  "Search": "Қидириш",
   "News deleted successfully!": "Янгилик муваффақиятли ўчирилди!",
   "Error deleting news!": "Янгиликни ўчиришда хатолик!",
-  "Update news": "Янгиликларни янгилаш"
+  "Update news": "Янгиликларни янгилаш",
+  "Posted": "Жойлаштирилди",
+  "Action": "Ҳаракат"
 }

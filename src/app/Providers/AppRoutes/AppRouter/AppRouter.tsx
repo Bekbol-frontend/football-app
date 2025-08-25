@@ -17,6 +17,11 @@ import { SubleaguePageAsync } from "@/pages/SubleaguePage";
 import { StadiumPageAsync } from "@/pages/StadiumPage";
 import { StadiumCreatePageAsync } from "@/pages/StadiumCreatePage";
 import { StadiumUpdatePageAsync } from "@/pages/StadiumUpdatePage";
+import { SubleagueCreatePageAsync } from "@/pages/SubleagueCreatePage";
+import { SubleagueUpdatePageAsync } from "@/pages/SubleagueUpdatePage";
+import { ClubPageAsync } from "@/pages/ClubPage";
+import { ClubCreatePageAsync } from "@/pages/ClubCreatePage";
+import { ClubUpdatePageAsync } from "@/pages/ClubUpdatePage";
 
 function AppRouter() {
   return (
@@ -42,7 +47,17 @@ function AppRouter() {
             path={`${routePaths.LeagueUpdate}/:id`}
             element={<LeagueUpdatePageAsync />}
           />
+
           <Route path={routePaths.Subleague} element={<SubleaguePageAsync />} />
+          <Route
+            path={routePaths.SubleagueCreatePage}
+            element={<SubleagueCreatePageAsync />}
+          />
+          <Route
+            path={`${routePaths.SubleagueUpdatePage}/:id`}
+            element={<SubleagueUpdatePageAsync />}
+          />
+
           <Route path={routePaths.StadiumPage} element={<StadiumPageAsync />} />
           <Route
             path={routePaths.StadiumCreatePage}
@@ -51,6 +66,16 @@ function AppRouter() {
           <Route
             path={`${routePaths.StadiumUpdatePage}/:id`}
             element={<StadiumUpdatePageAsync />}
+          />
+
+          <Route path={routePaths.ClubPage} element={<ClubPageAsync />} />
+          <Route
+            path={routePaths.ClubCreatePage}
+            element={<ClubCreatePageAsync />}
+          />
+          <Route
+            path={`${routePaths.ClubUpdatePage}/:id`}
+            element={<ClubUpdatePageAsync />}
           />
         </Route>
       </Route>

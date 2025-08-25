@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Flex,
@@ -8,7 +8,7 @@ import {
   type TabsProps,
   Typography,
 } from "antd";
-import type { TYPE_LANG } from "@/shared/types/lang";
+import { LangEnum, LangEnumShort, type TYPE_LANG } from "@/shared/types/lang";
 import StadiumFormItem from "./StadiumFormItem/StadiumFormItem";
 import { useNavigate } from "react-router-dom";
 import type { IStadiumForm } from "../../model/types";
@@ -23,6 +23,7 @@ import { queryKey } from "@/shared/consts/queryKey";
 import { routePaths } from "@/shared/config/routeConfig";
 import { useTranslation } from "react-i18next";
 import { PageLoading } from "@/widgets/PageLoading";
+import { langsArray } from "@/shared/consts/langsArray";
 
 const { Title } = Typography;
 
@@ -93,29 +94,28 @@ function StadiumForm({ id }: IProps) {
   const onFinish = useCallback(() => {
     const allValues: IStadiumForm = form.getFieldsValue();
 
-    const langs = ["en", "ru", "qq", "kk", "uz", "oz"] as const;
-    const empty = [];
+    const empty: string[] = [];
 
-    for (let lang of langs) {
+    langsArray.forEach((lang) => {
       const name = allValues.name[lang]?.trim();
 
       if (!name) {
         const language =
-          lang === "en"
-            ? "English"
-            : lang === "ru"
-            ? "Русский"
-            : lang === "qq"
-            ? "Qaraqalpaq"
-            : lang === "kk"
-            ? "Қарақалпақ"
-            : lang === "uz"
-            ? "O’zbek"
-            : "Өзбек";
+          lang === LangEnumShort.EN
+            ? LangEnum.EN
+            : lang === LangEnumShort.RU
+            ? LangEnum.RU
+            : lang === LangEnumShort.QQ
+            ? LangEnum.QQ
+            : lang === LangEnumShort.KK
+            ? LangEnum.KK
+            : lang === LangEnumShort.UZ
+            ? LangEnum.UZ
+            : LangEnum.OZ;
 
         empty.push(language);
       }
-    }
+    });
 
     if (empty.length) {
       message.open({
@@ -137,44 +137,47 @@ function StadiumForm({ id }: IProps) {
     setActiveTab(val as TYPE_LANG);
   }, []);
 
-  const items: TabsProps["items"] = [
-    {
-      key: "en",
-      label: "English",
-      children: <StadiumFormItem lang="en" />,
-    },
-    {
-      key: "ru",
-      label: "Русский",
-      children: <StadiumFormItem lang="ru" />,
-    },
-    {
-      key: "qq",
-      label: "Qaraqalpaq",
-      children: <StadiumFormItem lang="qq" />,
-    },
-    {
-      key: "kk",
-      label: "Каракалпак",
-      children: <StadiumFormItem lang="kk" />,
-    },
-    {
-      key: "uz",
-      label: "Uzbek",
-      children: <StadiumFormItem lang="uz" />,
-    },
-    {
-      key: "oz",
-      label: "Озбек",
-      children: <StadiumFormItem lang="oz" />,
-    },
-  ];
+  const items: TabsProps["items"] = useMemo(
+    () => [
+      {
+        key: LangEnumShort.EN,
+        label: LangEnum.EN,
+        children: <StadiumFormItem lang="en" />,
+      },
+      {
+        key: LangEnumShort.RU,
+        label: LangEnum.RU,
+        children: <StadiumFormItem lang="ru" />,
+      },
+      {
+        key: LangEnumShort.QQ,
+        label: LangEnum.QQ,
+        children: <StadiumFormItem lang="qq" />,
+      },
+      {
+        key: LangEnumShort.KK,
+        label: LangEnum.KK,
+        children: <StadiumFormItem lang="kk" />,
+      },
+      {
+        key: LangEnumShort.UZ,
+        label: LangEnum.UZ,
+        children: <StadiumFormItem lang="uz" />,
+      },
+      {
+        key: LangEnumShort.OZ,
+        label: LangEnum.OZ,
+        children: <StadiumFormItem lang="oz" />,
+      },
+    ],
+    []
+  );
 
   if (isLoading || isFetching) return <PageLoading />;
 
   return (
     <div>
-      <Title level={2}>{id ? t("Edit stadium") : t("Create stadium")}</Title>
+      <Title level={2}>{id ? t("Update stadium") : t("Create stadium")}</Title>
       <Form
         form={form}
         name={id ? "edit-stadium" : "create-stadium"}
@@ -184,6 +187,7 @@ function StadiumForm({ id }: IProps) {
         layout="vertical"
       >
         <Tabs
+          type="card"
           defaultActiveKey={activeTab}
           items={id ? items.map((el) => ({ ...el, forceRender: true })) : items}
           onChange={onChange}

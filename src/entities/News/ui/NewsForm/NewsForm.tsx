@@ -3,7 +3,7 @@ import { DatePicker, Flex, Modal, Select, Tabs, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import type { TabsProps } from "antd";
 import { Button, Form } from "antd";
-import type { TYPE_LANG } from "@/shared/types/lang";
+import { LangEnum, LangEnumShort, type TYPE_LANG } from "@/shared/types/lang";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import NewsFormFile from "./NewsFormFile/NewsFormFile";
 import { NewsStatus, type INewsForm, type IPostNews } from "../../model/types";
@@ -18,6 +18,7 @@ import type { Dayjs } from "dayjs";
 import { getNewsById } from "../../model/services/services-data";
 import { PageLoading } from "@/widgets/PageLoading";
 import FormItemTab from "./FormItemTab/FormItemTab";
+import { langsArray } from "@/shared/consts/langsArray";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -114,29 +115,29 @@ function NewsForm({ id }: IProps) {
   const onSubmitForm = useCallback(async () => {
     const allValues = form.getFieldsValue();
 
-    const langs: TYPE_LANG[] = ["en", "ru", "qq", "kk", "uz", "oz"];
-    const emptyValues = [];
+    const emptyValues: string[] = [];
 
-    for (let lang of langs) {
+    langsArray.forEach((lang) => {
       const title = allValues.title[lang]?.trim();
       const desc = allValues.description[lang]?.trim();
 
       if (!title || !desc) {
         const language =
           lang === "en"
-            ? "English"
+            ? LangEnum.EN
             : lang === "ru"
-            ? "Русский"
+            ? LangEnum.RU
             : lang === "qq"
-            ? "Qaraqalpaq"
+            ? LangEnum.QQ
             : lang === "kk"
-            ? "Қарақалпақ"
+            ? LangEnum.KK
             : lang === "uz"
-            ? "O’zbek"
-            : "Өзбек";
+            ? LangEnum.UZ
+            : LangEnum.OZ;
+
         emptyValues.push(language);
       }
-    }
+    });
 
     if (emptyValues.length) {
       message.open({
@@ -175,33 +176,33 @@ function NewsForm({ id }: IProps) {
   const items: TabsProps["items"] = useMemo(
     () => [
       {
-        key: "en",
-        label: "English",
+        key: LangEnumShort.EN,
+        label: LangEnum.EN,
         children: <FormItemTab lang="en" />,
       },
       {
-        key: "ru",
-        label: "Русский",
+        key: LangEnumShort.RU,
+        label: LangEnum.RU,
         children: <FormItemTab lang="ru" />,
       },
       {
-        key: "qq",
-        label: "Qaraqalpaq",
+        key: LangEnumShort.QQ,
+        label: LangEnum.QQ,
         children: <FormItemTab lang="qq" />,
       },
       {
-        key: "kk",
-        label: "Қарақалпақ",
+        key: LangEnumShort.KK,
+        label: LangEnum.KK,
         children: <FormItemTab lang="kk" />,
       },
       {
-        key: "uz",
-        label: "O'zbek",
+        key: LangEnumShort.UZ,
+        label: LangEnum.UZ,
         children: <FormItemTab lang="uz" />,
       },
       {
-        key: "oz",
-        label: "Өзбек",
+        key: LangEnumShort.OZ,
+        label: LangEnum.OZ,
         children: <FormItemTab lang="oz" />,
       },
     ],

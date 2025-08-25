@@ -1,21 +1,25 @@
 import { queryKey } from "@/shared/consts/queryKey";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type ChangeEvent,
+} from "react";
 import { deleteNews, getNews } from "../../model/services/services-data";
-import { Button, Card, Flex, Input, Popconfirm, Space, Table, Tag } from "antd";
+import { Button, Card, Popconfirm, Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { NewsStatus, type INews } from "../../model/types";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "@/shared/lib/formatDate";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import { useDebounce } from "@/shared/lib/hooks/useDebounce";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { routePaths } from "@/shared/config/routeConfig";
+import SearchDataInput from "@/shared/ui/SearchDataInput/ui/SearchDataInput";
 
 function NewsData() {
   const [id, setId] = useState<number | null>(null);
@@ -69,6 +73,17 @@ function NewsData() {
     [deleteMutate]
   );
 
+  const onChangeInput = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      setSearchParams({
+        search: val,
+        limit: pageSizeParamsVal,
+      });
+    },
+    [pageSizeParamsVal]
+  );
+
   const columns: TableProps<INews>["columns"] = useMemo(
     () => [
       {
@@ -77,30 +92,30 @@ function NewsData() {
         key: "id",
       },
       {
-        title: "Title",
+        title: t("Title"),
         dataIndex: "title",
         key: "title",
       },
       {
-        title: "Information",
+        title: t("Information"),
         dataIndex: "description",
         key: "description",
       },
       {
-        title: "Date",
+        title: t("Date"),
         dataIndex: "description",
         key: "description",
         render: (_, record) => formatDate(record.publishedAt),
         sorter: (a, b) => a.publishedAt.localeCompare(b.publishedAt),
       },
       {
-        title: "Posted",
+        title: t("Posted"),
         dataIndex: "author",
         key: "author",
         render: (_, record) => record.author.name,
       },
       {
-        title: "Status",
+        title: t("Status"),
         dataIndex: "status",
         key: "status",
         render: (_, { status }) => (
@@ -123,7 +138,7 @@ function NewsData() {
         sorter: (a, b) => a.status.localeCompare(b.status),
       },
       {
-        title: "Action",
+        title: t("Action"),
         key: "action",
         width: 150,
         render: (_, record) => (
@@ -153,7 +168,7 @@ function NewsData() {
         ),
       },
     ],
-    [id, isPending, navigate, onClickDeleteNews, t]
+    [t, id, isPending, onClickDeleteNews, navigate]
   );
 
   useEffect(() => {
@@ -162,29 +177,7 @@ function NewsData() {
 
   return (
     <Card>
-      <Flex
-        justify="flex-end"
-        style={{
-          marginBottom: 30,
-        }}
-      >
-        <Input
-          style={{
-            justifyContent: "flex-end",
-            width: 250,
-          }}
-          placeholder={t("Search")}
-          prefix={<SearchOutlined />}
-          value={searchParamsVal}
-          onChange={(e) => {
-            const val = e.target.value;
-            setSearchParams({
-              search: val,
-              limit: pageSizeParamsVal,
-            });
-          }}
-        />
-      </Flex>
+      <SearchDataInput value={searchParamsVal} onChangeInput={onChangeInput} />
 
       <Table<INews>
         columns={columns}

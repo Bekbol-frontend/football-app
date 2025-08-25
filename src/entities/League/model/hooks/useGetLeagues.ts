@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getLeagues } from "../services";
 
 export const useGetLeagues = (
-  lang: string,
-  limit: number,
+  lang?: string,
+  limit?: number,
   search?: string,
   page?: number
 ) => {

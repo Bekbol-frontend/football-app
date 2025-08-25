@@ -22,8 +22,9 @@
   "Are you sure to delete this task?": "Bul wazıypanı óshiriwge isenimińiz kámil me?",
   "Yes": "Áweje",
   "No": "Joq",
-  "Search": "Izlew",
   "News deleted successfully!": "Jańalıq tabıslı óshirildi!",
   "Error deleting news!": "Jańalıqtı óshiriwde qátelik!",
-  "Update news": "Jańalıqlardı jańalaw"
+  "Update news": "Jańalıqlardı jańalaw",
+  "Posted": "Járiyalandı",
+  "Action": "Háreket"
 }

@@ -1,13 +1,9 @@
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState, type ChangeEvent } from "react";
 import { useGetLeagues } from "../../model/hooks/useGetLeagues";
-import { Button, Card, Flex, Input, Popconfirm, Space, Table } from "antd";
+import { Button, Card, Popconfirm, Space, Table } from "antd";
 import type { TableProps } from "antd";
 import type { ILeague } from "../../model/types";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDebounce } from "@/shared/lib/hooks/useDebounce";
 import { useTranslation } from "react-i18next";
@@ -16,6 +12,7 @@ import { queryKey } from "@/shared/consts/queryKey";
 import { deleteLeague } from "../../model/services";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import { routePaths } from "@/shared/config/routeConfig";
+import SearchDataInput from "@/shared/ui/SearchDataInput/ui/SearchDataInput";
 
 function LeagueData() {
   const [id, setId] = useState<number | null>(null);
@@ -60,6 +57,17 @@ function LeagueData() {
     [deleteMutation]
   );
 
+  const onChangeInput = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      setSearchParams({
+        search: val,
+        limit: pageSizeParamsVal,
+      });
+    },
+    [pageSizeParamsVal]
+  );
+
   const columns: TableProps<ILeague>["columns"] = useMemo(
     () => [
       {
@@ -73,7 +81,7 @@ function LeagueData() {
         key: "title",
       },
       {
-        title: "Action",
+        title: t("Action"),
         key: "action",
         width: 150,
         render: (_, record) => (
@@ -109,29 +117,11 @@ function LeagueData() {
   return (
     <>
       <Card>
-        <Flex
-          justify="flex-end"
-          style={{
-            marginBottom: 30,
-          }}
-        >
-          <Input
-            style={{
-              justifyContent: "flex-end",
-              width: 250,
-            }}
-            placeholder={t("Search")}
-            prefix={<SearchOutlined />}
-            value={searchParamsVal}
-            onChange={(e) => {
-              const val = e.target.value;
-              setSearchParams({
-                search: val,
-                limit: pageSizeParamsVal,
-              });
-            }}
-          />
-        </Flex>
+        <SearchDataInput
+          value={searchParamsVal}
+          onChangeInput={onChangeInput}
+        />
+
         <Table<ILeague>
           columns={columns}
           dataSource={data?.data.data}

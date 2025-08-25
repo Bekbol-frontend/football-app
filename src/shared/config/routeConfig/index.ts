@@ -6,10 +6,17 @@ export enum AppRoutes {
   LeagueCreate = "LeagueCreate",
   LeagueUpdate = "LeagueUpdate",
   Subleague = "Subleague",
+  SubleagueCreatePage = "SubleagueCreatePage",
+  SubleagueUpdatePage = "SubleagueUpdatePage",
 
   StadiumPage = "StadiumPage",
   StadiumCreatePage = "StadiumCreatePage",
   StadiumUpdatePage = "StadiumUpdatePage",
+
+  ClubPage = "ClubPage",
+  ClubCreatePage = "ClubCreatePage",
+  ClubUpdatePage = "ClubUpdatePage",
+
   Login = "Login",
   // 404
   NotFound = "NotFound",
@@ -23,10 +30,16 @@ export const routePaths: Record<AppRoutes, string> = {
   [AppRoutes.LeagueCreate]: "/league-create",
   [AppRoutes.LeagueUpdate]: "/league-update",
   [AppRoutes.Subleague]: "/subleague",
+  [AppRoutes.SubleagueCreatePage]: "/subleague-create",
+  [AppRoutes.SubleagueUpdatePage]: "/subleague-update",
 
   [AppRoutes.StadiumPage]: "/stadium",
   [AppRoutes.StadiumCreatePage]: "/stadium-create",
   [AppRoutes.StadiumUpdatePage]: "/stadium-update",
+
+  [AppRoutes.ClubPage]: "/club",
+  [AppRoutes.ClubCreatePage]: "/club-create",
+  [AppRoutes.ClubUpdatePage]: "/club-update",
 
   [AppRoutes.Login]: "/login",
   // 404

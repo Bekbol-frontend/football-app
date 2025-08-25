@@ -16,5 +16,8 @@
   "Create league": "Liga yaratish",
   "Update": "Yangilash",
   "Create": "Yaratish",
-  "Back": "Orqaga"
+  "Back": "Orqaga",
+  "Action": "Harakat",
+  "Name league": "Liga nomi",
+  "Please input your league!": "Iltimos, ligangizni kiriting!"
 }

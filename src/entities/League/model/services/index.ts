@@ -2,14 +2,16 @@ import API from "@/shared/api";
 import type { ILeague, ILueagueCreateData } from "../types";
 
 export const getLeagues = async (
-  lang: string,
-  limit: number,
+  lang?: string,
+  limit?: number,
   search?: string,
   page?: number
 ) => {
-  const params: Record<string, string | number> = {
-    limit: limit,
-  };
+  const params: Record<string, string | number> = {};
+
+  if (limit) {
+    params.limit = limit;
+  }
 
   if (search) {
     params.search = search;
@@ -20,7 +22,7 @@ export const getLeagues = async (
   }
 
   return API.get<{ data: ILeague[]; meta: { totalItems: number } }>(
-    "/api/v1/admin/leagues",
+    "/api/v1/admin/leagues/roots",
     {
       headers: {
         "x-lang": lang,

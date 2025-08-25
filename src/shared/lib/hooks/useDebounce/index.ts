@@ -19,5 +19,5 @@ export function useDebounce(val: string, delay: number = 700) {
     };
   }, [val, delay]);
 
-  return value;
+  return value.trim();
 }

@@ -1,9 +1,15 @@
 import { Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile, UploadProps } from "antd";
-import API from "@/shared/api";
+import API, { baseURL } from "@/shared/api";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import {
+  memo,
+  useEffect,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 interface IProps {
@@ -24,7 +30,7 @@ function LeagueFormFile({ setLogo, logo }: IProps) {
           uid: "-1",
           name: "logo-type",
           status: "done",
-          url: logo,
+          url: `${baseURL}${logo}`,
         },
       ]);
     }
@@ -63,12 +69,36 @@ function LeagueFormFile({ setLogo, logo }: IProps) {
         if (onSuccess) {
           onSuccess(res.data, file as any);
           setLogo(res.data.path);
+          setFileList([
+            {
+              uid: String(Date.now()),
+              name: "logo-type",
+              status: "done",
+              url: `${baseURL}${res.data.path}`,
+            },
+          ]);
         }
       } catch (err) {
         message.error(t("Error uploading file!"));
         if (onError) {
           onError(err as any);
         }
+      }
+    },
+
+    onRemove: async () => {
+      try {
+        if (logo) {
+          const res = await API.delete("/api/v1/upload/file", {
+            data: { path: logo },
+          });
+          console.log(res);
+          setLogo("");
+          setFileList([]);
+          message.success(t("File deleted successfully!"));
+        }
+      } catch (error) {
+        message.error(t("Error deleting file!"));
       }
     },
   };
@@ -82,4 +112,4 @@ function LeagueFormFile({ setLogo, logo }: IProps) {
   );
 }
 
-export default LeagueFormFile;
+export default memo(LeagueFormFile);

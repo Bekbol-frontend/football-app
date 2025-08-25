@@ -1,20 +1,17 @@
-import { memo, useCallback, useState } from "react";
-import { Button, Card, Flex, Input, Popconfirm, Space, Table } from "antd";
+import { memo, useCallback, useMemo, useState, type ChangeEvent } from "react";
+import { Button, Card, Popconfirm, Space, Table } from "antd";
 import type { TableProps } from "antd";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteStadium, getStadiums } from "../../model/services";
 import { queryKey } from "@/shared/consts/queryKey";
 import { useTranslation } from "react-i18next";
 import type { IStadium } from "../../model/types";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { routePaths } from "@/shared/config/routeConfig";
 import { useDebounce } from "@/shared/lib/hooks/useDebounce";
+import SearchDataInput from "@/shared/ui/SearchDataInput/ui/SearchDataInput";
 
 function StadiumData() {
   const [id, setId] = useState<number | null>(null);
@@ -53,89 +50,82 @@ function StadiumData() {
     [deleteMutation]
   );
 
+  const onChangeInput = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      setSearchParams({
+        search: val,
+        limit: pageSize,
+      });
+    },
+    [pageSize]
+  );
+
   const { data, isLoading } = useQuery({
     queryFn: () => getStadiums(i18n.language, pageSize, page, search),
     queryKey: [queryKey.stadium, i18n.language, pageSize, page, search],
   });
 
-  const columns: TableProps<IStadium>["columns"] = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      title: t("Name"),
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: t("Address"),
-      dataIndex: "address",
-      key: "address",
-    },
-    {
-      title: t("City"),
-      dataIndex: "city",
-      key: "city",
-    },
-    {
-      title: t("Action"),
-      key: "action",
-      width: 150,
-      render: (_, record) => (
-        <Space size="small">
-          <Popconfirm
-            title={t("Delete the task")}
-            description={t("Are you sure to delete this task?")}
-            onConfirm={() => onClickDeleteNews(record.id)}
-            okText={t("Yes")}
-            cancelText={t("No")}
-          >
+  const columns: TableProps<IStadium>["columns"] = useMemo(
+    () => [
+      {
+        title: "ID",
+        dataIndex: "id",
+        key: "id",
+      },
+      {
+        title: t("Name"),
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: t("Address"),
+        dataIndex: "address",
+        key: "address",
+      },
+      {
+        title: t("City"),
+        dataIndex: "city",
+        key: "city",
+      },
+      {
+        title: t("Action"),
+        key: "action",
+        width: 150,
+        render: (_, record) => (
+          <Space size="small">
+            <Popconfirm
+              title={t("Delete the task")}
+              description={t("Are you sure to delete this task?")}
+              onConfirm={() => onClickDeleteNews(record.id)}
+              okText={t("Yes")}
+              cancelText={t("No")}
+            >
+              <Button
+                type="primary"
+                danger
+                icon={<DeleteOutlined />}
+                loading={id === record.id && isPending}
+              />
+            </Popconfirm>
             <Button
               type="primary"
-              danger
-              icon={<DeleteOutlined />}
-              loading={id === record.id && isPending}
+              icon={<EditOutlined />}
+              onClick={() =>
+                navigate(`${routePaths.StadiumUpdatePage}/${record.id}`)
+              }
             />
-          </Popconfirm>
-          <Button
-            type="primary"
-            icon={<EditOutlined />}
-            onClick={() =>
-              navigate(`${routePaths.StadiumUpdatePage}/${record.id}`)
-            }
-          />
-        </Space>
-      ),
-    },
-  ];
+          </Space>
+        ),
+      },
+    ],
+    [id, isPending, onClickDeleteNews, navigate, t]
+  );
 
   return (
     <Card>
-      <Flex
-        justify="flex-end"
-        style={{
-          marginBottom: 30,
-        }}
-      >
-        <Input
-          style={{
-            justifyContent: "flex-end",
-            width: 250,
-          }}
-          placeholder={t("Search")}
-          prefix={<SearchOutlined />}
-          value={searchParamsVal}
-          onChange={(e) => {
-            const val = e.target.value;
-            setSearchParams({
-              search: val,
-              limit: pageSize,
-            });
-          }}
-        />
-      </Flex>
+      <SearchDataInput value={searchParamsVal} onChangeInput={onChangeInput} />
+
       <Table<IStadium>
         columns={columns}
         dataSource={data?.data.data}
