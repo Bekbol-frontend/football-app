@@ -1,9 +1,11 @@
-import {memo} from 'react'
+import { SubleagueForm } from "@/entities/Subleague";
+import { memo } from "react";
+import { useParams } from "react-router-dom";
 
 function SubleagueUpdatePage() {
-  return (
-    <div>SubleagueUpdatePage</div>
-  )
+  const { id } = useParams();
+
+  return <SubleagueForm id={id} />;
 }
 
-export default memo(SubleagueUpdatePage)
+export default memo(SubleagueUpdatePage);

@@ -212,7 +212,7 @@ function NewsForm({ id }: IProps) {
   if (isLoading || isFetching) return <PageLoading />;
 
   return (
-    <div>
+    <>
       <Title level={2}>{t(id ? "Update news" : "Add news")}</Title>
 
       <Form
@@ -303,7 +303,7 @@ function NewsForm({ id }: IProps) {
           </Button>
         </Flex>
       </Modal>
-    </div>
+    </>
   );
 }
 

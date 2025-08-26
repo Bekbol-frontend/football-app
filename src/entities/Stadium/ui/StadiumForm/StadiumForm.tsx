@@ -176,7 +176,7 @@ function StadiumForm({ id }: IProps) {
   if (isLoading || isFetching) return <PageLoading />;
 
   return (
-    <div>
+    <>
       <Title level={2}>{id ? t("Update stadium") : t("Create stadium")}</Title>
       <Form
         form={form}
@@ -223,7 +223,7 @@ function StadiumForm({ id }: IProps) {
           </Button>
         </Flex>
       </Form>
-    </div>
+    </>
   );
 }
 

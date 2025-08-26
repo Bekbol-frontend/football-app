@@ -6,7 +6,6 @@ import LeagueFormItemTab from "./LeagueFormItemTab/LeagueFormItemTab";
 import { LangEnum, LangEnumShort, type TYPE_LANG } from "@/shared/types/lang";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import type { ILueagueCreateData, ILueagueForm } from "../../model/types";
-import LeagueFormFile from "./LeagueFormFile/LeagueFormFile";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createLeague,
@@ -18,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { PageLoading } from "@/widgets/PageLoading";
 import { routePaths } from "@/shared/config/routeConfig";
 import { langsArray } from "@/shared/consts/langsArray";
+import { FileUpload } from "@/shared/ui/FileUpload";
 
 const { Title } = Typography;
 
@@ -178,7 +178,7 @@ function LeagueForm({ id }: IProps) {
   if (isLoading || isFetching) return <PageLoading />;
 
   return (
-    <div>
+    <>
       <Title level={2}>{t(id ? "Update league" : "Create league")}</Title>
 
       <Form
@@ -196,7 +196,7 @@ function LeagueForm({ id }: IProps) {
         />
 
         <Form.Item>
-          <LeagueFormFile setLogo={setLogo} logo={logo} />
+          <FileUpload setLogo={setLogo} logo={logo} />
         </Form.Item>
 
         <Flex gap={3}>
@@ -213,7 +213,7 @@ function LeagueForm({ id }: IProps) {
           </Button>
         </Flex>
       </Form>
-    </div>
+    </>
   );
 }
 

@@ -1,22 +1,33 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Flex, Typography, Tabs, Select } from "antd";
 import type { TabsProps } from "antd";
 import { Button, Form } from "antd";
 import type { ISubleagueForm } from "../../model/types";
 import { LangEnum, LangEnumShort, type TYPE_LANG } from "@/shared/types/lang";
 import SubleagueFormItem from "./SubleagueFormItem/SubleagueFormItem";
-import { type ILeague } from "@/entities/League";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import API from "@/shared/api";
 import { queryKey } from "@/shared/consts/queryKey";
-import SubleagueFormFile from "./SubleagueFormFile/SubleagueFormFile";
 import { langsArray } from "@/shared/consts/langsArray";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
-import { createSubleague } from "../../model/services";
+import {
+  createSubleague,
+  getSubleagueById,
+  updateSubleague,
+} from "../../model/services";
+import { PageLoading } from "@/widgets/PageLoading";
+import { FileUpload } from "@/shared/ui/FileUpload";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { routePaths } from "@/shared/config/routeConfig";
 
 const { Title } = Typography;
 
-function SubleagueForm() {
+interface IProps {
+  id?: string;
+}
+
+function SubleagueForm({ id }: IProps) {
   const [enabledLeague, setEnabledLeague] = useState(false);
   const [activeTab, setActiveTab] = useState<TYPE_LANG>("en");
   const [logo, setLogo] = useState<string>("");
@@ -24,27 +35,55 @@ function SubleagueForm() {
   const [form] = Form.useForm();
   const message = useMessageApi();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { t } = useTranslation("subleague");
 
   const { data, isLoading } = useQuery({
     queryFn: () => {
-      return API.get<{ data: ILeague[] }>("/api/v1/admin/leagues");
+      return API.get<{ id: number; title: string }[]>(
+        "/api/v1/admin/leagues/list"
+      );
     },
     queryKey: [queryKey.leagues],
     enabled: enabledLeague,
+  });
+
+  const {
+    data: subleagueData,
+    isLoading: isSubleagueLoading,
+    isFetching,
+  } = useQuery({
+    queryFn: () => getSubleagueById(id!),
+    queryKey: [queryKey.subleagues, id],
+    enabled: !!id,
   });
 
   const createMutation = useMutation({
     mutationFn: createSubleague,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey.subleagues] });
-      message.success("Subleague created successfully!");
+      message.success(t("Subleague created successfully!"));
+      navigate(routePaths.Subleague);
     },
     onError: () => {
-      message.error("Error creating subleague!");
+      message.error(t("Error creating subleague!"));
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: updateSubleague,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey.subleagues] });
+      message.success(t("Subleague updated successfully!"));
+      navigate(routePaths.Subleague);
+    },
+    onError: () => {
+      message.error(t("Error updating subleague!"));
     },
   });
 
   const { isPending, isError } = createMutation;
+  const { isPending: isPendingUpdate, isError: isErrorUpdate } = updateMutation;
 
   const onFinish = useCallback(() => {
     const allValues: ISubleagueForm = form.getFieldsValue();
@@ -71,63 +110,90 @@ function SubleagueForm() {
     });
 
     if (empty.length) {
-      message.error(`Please fill in the fields: ${empty.join(", ")}`);
+      message.error(`${t("Please fill in the fields:")} ${empty.join(", ")}`);
       return;
     }
 
     if (!logo) {
-      message.error(`Please upload a logo`);
+      message.error(t("Please upload a logo"));
       return;
     }
-    console.log({ ...allValues, logo });
 
-    createMutation.mutate({ ...allValues, logo });
-  }, [form, logo, message, createMutation]);
+    const data = {
+      ...allValues,
+      logo,
+    };
+
+    if (id) {
+      updateMutation.mutate({ id, data });
+      return;
+    }
+
+    createMutation.mutate(data);
+  }, [form, logo, message, createMutation, updateMutation, id, t]);
 
   const onChangeActiveTab = useCallback((val: string) => {
     setActiveTab(val as TYPE_LANG);
   }, []);
 
-  const items: TabsProps["items"] = [
-    {
-      key: LangEnumShort.EN,
-      label: LangEnum.EN,
-      children: <SubleagueFormItem lang={LangEnumShort.EN} />,
-    },
-    {
-      key: LangEnumShort.RU,
-      label: LangEnum.RU,
-      children: <SubleagueFormItem lang={LangEnumShort.RU} />,
-    },
-    {
-      key: LangEnumShort.QQ,
-      label: LangEnum.QQ,
-      children: <SubleagueFormItem lang={LangEnumShort.QQ} />,
-    },
-    {
-      key: LangEnumShort.KK,
-      label: LangEnum.KK,
-      children: <SubleagueFormItem lang={LangEnumShort.KK} />,
-    },
-    {
-      key: LangEnumShort.UZ,
-      label: LangEnum.UZ,
-      children: <SubleagueFormItem lang={LangEnumShort.UZ} />,
-    },
-    {
-      key: LangEnumShort.OZ,
-      label: LangEnum.OZ,
-      children: <SubleagueFormItem lang={LangEnumShort.OZ} />,
-    },
-  ];
+  const items: TabsProps["items"] = useMemo(
+    () => [
+      {
+        key: LangEnumShort.EN,
+        label: LangEnum.EN,
+        children: <SubleagueFormItem lang={LangEnumShort.EN} />,
+      },
+      {
+        key: LangEnumShort.RU,
+        label: LangEnum.RU,
+        children: <SubleagueFormItem lang={LangEnumShort.RU} />,
+      },
+      {
+        key: LangEnumShort.QQ,
+        label: LangEnum.QQ,
+        children: <SubleagueFormItem lang={LangEnumShort.QQ} />,
+      },
+      {
+        key: LangEnumShort.KK,
+        label: LangEnum.KK,
+        children: <SubleagueFormItem lang={LangEnumShort.KK} />,
+      },
+      {
+        key: LangEnumShort.UZ,
+        label: LangEnum.UZ,
+        children: <SubleagueFormItem lang={LangEnumShort.UZ} />,
+      },
+      {
+        key: LangEnumShort.OZ,
+        label: LangEnum.OZ,
+        children: <SubleagueFormItem lang={LangEnumShort.OZ} />,
+      },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    if (!isSubleagueLoading && !isFetching && subleagueData?.data) {
+      form.setFieldsValue(subleagueData.data);
+      setLogo(subleagueData.data.logo);
+    }
+
+    return () => {
+      form.resetFields();
+    };
+  }, [subleagueData, form, isSubleagueLoading, isFetching]);
+
+  if (isSubleagueLoading || isFetching) return <PageLoading />;
 
   return (
     <>
-      <Title level={2}>Subleague</Title>
+      <Title level={2}>
+        {id ? t("Update subleague") : t("Create subleague")}
+      </Title>
 
       <Form
         form={form}
-        name="basic"
+        name={id ? "update-subleague" : "create-subleague"}
         onFinish={onFinish}
         autoComplete="off"
         layout="vertical"
@@ -135,17 +201,17 @@ function SubleagueForm() {
         <Tabs
           type="card"
           activeKey={activeTab}
-          items={items}
+          items={id ? items.map((el) => ({ ...el, forceRender: true })) : items}
           onChange={onChangeActiveTab}
         />
 
         <Form.Item<ISubleagueForm>
-          label="League"
+          label={t("League")}
           name="parentLeagueId"
-          rules={[{ required: true, message: "Please input your league!" }]}
+          rules={[{ required: true, message: t("Please input your league!") }]}
         >
           <Select
-            options={data?.data.data.map((el) => ({
+            options={data?.data.map((el) => ({
               label: el.title,
               value: el.id,
             }))}
@@ -155,20 +221,20 @@ function SubleagueForm() {
         </Form.Item>
 
         <Form.Item>
-          <SubleagueFormFile logo={logo} setLogo={setLogo} />
+          <FileUpload logo={logo} setLogo={setLogo} />
         </Form.Item>
 
         <Flex gap={3}>
           <Button
             type="primary"
             htmlType="submit"
-            loading={isPending}
-            danger={isError}
+            loading={isPending || isPendingUpdate}
+            danger={isError || isErrorUpdate}
           >
-            Create
+            {id ? t("Update") : t("Create")}
           </Button>
-          <Button type="primary" htmlType="button">
-            Back
+          <Button type="primary" htmlType="button" onClick={() => navigate(-1)}>
+            {t("Back")}
           </Button>
         </Flex>
       </Form>

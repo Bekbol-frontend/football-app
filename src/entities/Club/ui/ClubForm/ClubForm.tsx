@@ -8,7 +8,6 @@ import type { IClubForm } from "../../model/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKey } from "@/shared/consts/queryKey";
 import API from "@/shared/api";
-import ClubFormFile from "./ClubFormFile/ClubFormFile";
 import { langsArray } from "@/shared/consts/langsArray";
 import { useMessageApi } from "@/app/Providers/MessageProvider";
 import { createClub, getClubById, updateClub } from "../../model/services";
@@ -16,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { routePaths } from "@/shared/config/routeConfig";
 import { PageLoading } from "@/widgets/PageLoading";
 import { useTranslation } from "react-i18next";
+import { FileUpload } from "@/shared/ui/FileUpload";
 
 const { Title } = Typography;
 
@@ -196,7 +196,7 @@ function ClubForm({ id }: IProps) {
   if (isLoading || isFetching) return <PageLoading />;
 
   return (
-    <div>
+    <>
       <Title level={2}> {id ? t("Update club") : t("Create club")} </Title>
       <Form
         form={form}
@@ -253,7 +253,7 @@ function ClubForm({ id }: IProps) {
         </Flex>
 
         <Form.Item>
-          <ClubFormFile logo={logo} setLogo={setLogo} />
+          <FileUpload logo={logo} setLogo={setLogo} />
         </Form.Item>
 
         <Flex gap={3}>
@@ -270,7 +270,7 @@ function ClubForm({ id }: IProps) {
           </Button>
         </Flex>
       </Form>
-    </div>
+    </>
   );
 }
 

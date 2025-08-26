@@ -17,8 +17,10 @@ interface IProps {
   logo: string;
 }
 
-function LeagueFormFile({ setLogo, logo }: IProps) {
+function FileUpload({ setLogo, logo }: IProps) {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const message = useMessageApi();
   const { t } = useTranslation();
@@ -34,7 +36,27 @@ function LeagueFormFile({ setLogo, logo }: IProps) {
         },
       ]);
     }
-  }, [logo]);
+
+    if (loading) {
+      setFileList([
+        {
+          uid: String(Date.now()),
+          name: "logo-type",
+          status: "uploading",
+        },
+      ]);
+    }
+
+    if (error) {
+      setFileList([
+        {
+          uid: String(Date.now()),
+          name: "logo-type",
+          status: "error",
+        },
+      ]);
+    }
+  }, [logo, loading, error]);
 
   const props: UploadProps = {
     maxCount: 1,
@@ -46,7 +68,8 @@ function LeagueFormFile({ setLogo, logo }: IProps) {
 
       const formData = new FormData();
       formData.append("file", file as Blob);
-
+      setLoading(true);
+      setError(false);
       try {
         const res = await API.post<{ filename: string; path: string }>(
           "/api/v1/upload",
@@ -80,9 +103,12 @@ function LeagueFormFile({ setLogo, logo }: IProps) {
         }
       } catch (err) {
         message.error(t("Error uploading file!"));
+        setError(true);
         if (onError) {
           onError(err as any);
         }
+      } finally {
+        setLoading(false);
       }
     },
 
@@ -112,4 +138,4 @@ function LeagueFormFile({ setLogo, logo }: IProps) {
   );
 }
 
-export default memo(LeagueFormFile);
+export default memo(FileUpload);

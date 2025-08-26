@@ -71,18 +71,18 @@ function SubleagueData() {
         key: "id",
       },
       {
-        title: "Logo",
+        title: t("Logo"),
         dataIndex: "logo",
         key: "logo",
         render: (logo: string) => <ImageTable logo={logo} />,
       },
       {
-        title: "Title",
+        title: t("Title"),
         dataIndex: "title",
         key: "title",
       },
       {
-        title: "Parent League ID",
+        title: t("Parent League ID"),
         dataIndex: "parentLeagueId",
         key: "parentLeagueId",
       },

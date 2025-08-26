@@ -1,5 +1,5 @@
 import API from "@/shared/api";
-import type { ISubleague, ISubleaguePost } from "../types";
+import type { ISubleague, ISubleagueById, ISubleaguePost } from "../types";
 
 export const getSubleagues = async (
   lang: string,
@@ -35,6 +35,17 @@ export const getSubleagues = async (
     },
     params,
   });
+};
+
+export const getSubleagueById = async (id?: string) => {
+  return API.get<ISubleagueById>(`/api/v1/admin/leagues/${id}`);
+};
+
+export const updateSubleague = async (obj: {
+  id: string;
+  data: ISubleaguePost;
+}) => {
+  return API.patch(`/api/v1/admin/leagues/${obj.id}`, obj.data);
 };
 
 export const createSubleague = async (data: ISubleaguePost) => {

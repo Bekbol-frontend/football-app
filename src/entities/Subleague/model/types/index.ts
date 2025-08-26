@@ -15,9 +15,15 @@ export interface ISubleague {
   updatedAt: string;
 }
 
-export interface ISubleagueForm {
+export interface ISubleagueById {
+  id: number;
   title: ILang;
   logo: string;
+  parentLeagueId: number;
+}
+
+export interface ISubleagueForm {
+  title: ILang;
   parentLeagueId: number;
 }
 
