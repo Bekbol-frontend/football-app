@@ -134,7 +134,11 @@ function SubleagueData() {
           total: data?.data.meta.totalItems,
           showSizeChanger: true,
           onChange: (page, limit) => {
-            setSearchParams({ page: String(page), limit: String(limit) });
+            setSearchParams({
+              page: String(page),
+              limit: String(limit),
+              search: searchParamsVal,
+            });
           },
         }}
       />

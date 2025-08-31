@@ -4,4 +4,5 @@ export const queryKey = {
   subleagues: "subleagues",
   stadium: "stadium",
   clubs: "clubs",
+  personnel: "personnel",
 };

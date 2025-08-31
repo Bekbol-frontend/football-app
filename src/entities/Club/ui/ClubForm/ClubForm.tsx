@@ -94,7 +94,7 @@ function ClubForm({ id }: IProps) {
         }
       );
     },
-    queryKey: [queryKey.leagues],
+    queryKey: [queryKey.subleagues],
     enabled: subLeagueEnabled,
   });
 
@@ -192,6 +192,13 @@ function ClubForm({ id }: IProps) {
       setLogo(data.data.logo);
     }
   }, [data, form, isLoading, isFetching]);
+
+  useEffect(() => {
+    if (id) {
+      setLeagueEnabled(true);
+      setSubLeagueEnabled(true);
+    }
+  }, [id, form]);
 
   if (isLoading || isFetching) return <PageLoading />;
 

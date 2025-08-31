@@ -48,6 +48,12 @@ function SubleagueForm({ id }: IProps) {
     enabled: enabledLeague,
   });
 
+  useEffect(() => {
+    if (id) {
+      setEnabledLeague(true);
+    }
+  }, [id]);
+
   const {
     data: subleagueData,
     isLoading: isSubleagueLoading,
@@ -174,7 +180,10 @@ function SubleagueForm({ id }: IProps) {
 
   useEffect(() => {
     if (!isSubleagueLoading && !isFetching && subleagueData?.data) {
-      form.setFieldsValue(subleagueData.data);
+      form.setFieldsValue({
+        ...subleagueData.data,
+        parentLeagueId: subleagueData.data.parentLeagueId,
+      });
       setLogo(subleagueData.data.logo);
     }
 

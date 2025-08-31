@@ -1,7 +1,9 @@
 import { memo, useMemo } from "react";
 import {
   BankOutlined,
+  DribbbleOutlined,
   FileTextOutlined,
+  SolutionOutlined,
   TeamOutlined,
   TrophyOutlined,
 } from "@ant-design/icons";
@@ -43,6 +45,16 @@ function SidebarMenu() {
         key: routePaths.ClubPage,
         icon: <TeamOutlined />,
         label: <Link to={routePaths.ClubPage}>{t("Club")}</Link>,
+      },
+      {
+        key: routePaths.MatchPage,
+        icon: <DribbbleOutlined />,
+        label: <Link to={routePaths.MatchPage}>{t("Match")}</Link>,
+      },
+      {
+        key: routePaths.PersonnelPage,
+        icon: <SolutionOutlined />,
+        label: <Link to={routePaths.PersonnelPage}>{t("Personnel")}</Link>,
       },
     ],
     [t]

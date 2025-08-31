@@ -22,6 +22,12 @@ import { SubleagueUpdatePageAsync } from "@/pages/SubleagueUpdatePage";
 import { ClubPageAsync } from "@/pages/ClubPage";
 import { ClubCreatePageAsync } from "@/pages/ClubCreatePage";
 import { ClubUpdatePageAsync } from "@/pages/ClubUpdatePage";
+import { MatchPageAsync } from "@/pages/MatchPage";
+import { MatchCreatePageAsync } from "@/pages/MatchCreatePage";
+import { MatchUpdatePageAsync } from "@/pages/MatchUpdatePage";
+import { PersonnelPageAsync } from "@/pages/PersonnelPage";
+import { PersonnelCreatePageAsync } from "@/pages/PersonnelCreatePage";
+import { PersonnelUpdatePageAsync } from "@/pages/PersonnelUpdatePage";
 
 function AppRouter() {
   return (
@@ -76,6 +82,29 @@ function AppRouter() {
           <Route
             path={`${routePaths.ClubUpdatePage}/:id`}
             element={<ClubUpdatePageAsync />}
+          />
+
+          <Route path={routePaths.MatchPage} element={<MatchPageAsync />} />
+          <Route
+            path={routePaths.MatchCreatePage}
+            element={<MatchCreatePageAsync />}
+          />
+          <Route
+            path={`${routePaths.MatchUpdatePage}/:id}`}
+            element={<MatchUpdatePageAsync />}
+          />
+
+          <Route
+            path={routePaths.PersonnelPage}
+            element={<PersonnelPageAsync />}
+          />
+          <Route
+            path={routePaths.PersonnelCreatePage}
+            element={<PersonnelCreatePageAsync />}
+          />
+          <Route
+            path={`${routePaths.PersonnelUpdatePage}/:id`}
+            element={<PersonnelUpdatePageAsync />}
           />
         </Route>
       </Route>

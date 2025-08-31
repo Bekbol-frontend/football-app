@@ -140,6 +140,7 @@ function StadiumData() {
             setSearchParams({
               page: String(page),
               limit: String(limit),
+              search: searchParamsVal,
             });
           },
         }}

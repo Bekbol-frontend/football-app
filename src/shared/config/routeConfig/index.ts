@@ -17,6 +17,15 @@ export enum AppRoutes {
   ClubCreatePage = "ClubCreatePage",
   ClubUpdatePage = "ClubUpdatePage",
 
+  MatchPage = "MatchPage",
+  MatchCreatePage = "MatchCreatePage",
+  MatchUpdatePage = "MatchUpdatePage",
+
+  PersonnelPage = "PersonnelPage",
+  PersonnelCreatePage = "PersonnelCreatePage",
+  PersonnelUpdatePage = "PersonnelUpdatePage",
+
+  // login
   Login = "Login",
   // 404
   NotFound = "NotFound",
@@ -41,6 +50,15 @@ export const routePaths: Record<AppRoutes, string> = {
   [AppRoutes.ClubCreatePage]: "/club-create",
   [AppRoutes.ClubUpdatePage]: "/club-update",
 
+  [AppRoutes.MatchPage]: "/match",
+  [AppRoutes.MatchCreatePage]: "/match-create",
+  [AppRoutes.MatchUpdatePage]: "/match-update",
+
+  [AppRoutes.PersonnelPage]: "/personnel",
+  [AppRoutes.PersonnelCreatePage]: "/personnel-create",
+  [AppRoutes.PersonnelUpdatePage]: "/personnel-update",
+
+  // login
   [AppRoutes.Login]: "/login",
   // 404
   [AppRoutes.NotFound]: "*",

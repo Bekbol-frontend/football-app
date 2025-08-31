@@ -26,6 +26,7 @@ function FileUpload({ setLogo, logo }: IProps) {
   const { t } = useTranslation();
 
   useEffect(() => {
+    console.log(logo);
     if (logo) {
       setFileList([
         {
@@ -113,6 +114,8 @@ function FileUpload({ setLogo, logo }: IProps) {
     },
 
     onRemove: async () => {
+      setLoading(true);
+      setError(false);
       try {
         if (logo) {
           const res = await API.delete("/api/v1/upload/file", {
@@ -125,6 +128,9 @@ function FileUpload({ setLogo, logo }: IProps) {
         }
       } catch (error) {
         message.error(t("Error deleting file!"));
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     },
   };
