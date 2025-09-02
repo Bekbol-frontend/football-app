@@ -37,7 +37,7 @@ function LeagueData() {
   const { isPending } = deleteMutation;
 
   const searchParamsVal = searchParams.get("search") || "";
-  const pageSizeParamsVal = searchParams.get("limit") || "2";
+  const pageSizeParamsVal = searchParams.get("limit") || "10";
   const pageParamsVal = searchParams.get("page") || "1";
 
   const searchVal = useDebounce(searchParamsVal, 500);

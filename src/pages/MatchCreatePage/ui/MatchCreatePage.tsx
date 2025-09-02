@@ -1,9 +1,8 @@
-import {memo} from 'react'
+import { MatchForm } from "@/entities/Match";
+import { memo } from "react";
 
 function MatchCreatePage() {
-  return (
-    <div>MatchCreatePage</div>
-  )
+  return <MatchForm />;
 }
 
-export default memo(MatchCreatePage)
+export default memo(MatchCreatePage);

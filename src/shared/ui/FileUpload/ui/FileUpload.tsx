@@ -88,10 +88,12 @@ function FileUpload({ setLogo, logo }: IProps) {
           }
         );
 
+        if (!res.data) throw new Error("error");
+
         message.success(t("File uploaded successfully!"));
 
         if (onSuccess) {
-          onSuccess(res.data, file as any);
+          onSuccess(res.data, file);
           setLogo(res.data.path);
           setFileList([
             {
@@ -118,10 +120,9 @@ function FileUpload({ setLogo, logo }: IProps) {
       setError(false);
       try {
         if (logo) {
-          const res = await API.delete("/api/v1/upload/file", {
+          await API.delete("/api/v1/upload/file", {
             data: { path: logo },
           });
-          console.log(res);
           setLogo("");
           setFileList([]);
           message.success(t("File deleted successfully!"));

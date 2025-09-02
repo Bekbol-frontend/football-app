@@ -35,6 +35,9 @@ function AntdConfigProvider({ children }: IProps) {
           Select: {
             controlHeight: 35,
           },
+          DatePicker: {
+            controlHeight: 35,
+          }
         },
       }}
     >

@@ -5,4 +5,5 @@ export const queryKey = {
   stadium: "stadium",
   clubs: "clubs",
   personnel: "personnel",
+  matches: "matches",
 };
