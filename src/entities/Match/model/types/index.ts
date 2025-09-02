@@ -40,37 +40,28 @@ export const matchStatus: Record<MatchStatus, string> = {
   [MatchStatus.SCHEDULED]: "Scheduled",
 };
 
+interface MatchClub {
+  id: number;
+  name: string;
+  logo: string;
+}
+
+interface MatchStadium {
+  id: number;
+  name: string;
+  address: string;
+  city: string;
+}
+
 export interface IMatchData {
   id: number;
-  club: {
-    id: number;
-    name: string;
-    logo: string;
-  };
-  clubLeague: {
-    id: number;
-    title: string;
-  };
-  clubSubLeague: null;
-  opponentClub: {
-    id: number;
-    name: string;
-    logo: string;
-  };
-  opponentLeague: {
-    id: number;
-    title: string;
-  };
-  opponentSubLeague: null;
+  club: MatchClub;
+  opponentClub: MatchClub;
   matchDate: string;
-  stadium: {
-    id: number;
-    name: string;
-    address: string;
-    city: string;
-  };
+  stadium: MatchStadium;
   status: MatchStatus;
-  matchScores: [];
+  clubScore: null | number;
+  opponentClubScore: null | number;
   createdAt: string;
   updatedAt: string;
 }

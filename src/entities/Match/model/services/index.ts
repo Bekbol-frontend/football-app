@@ -1,5 +1,5 @@
 import API from "@/shared/api";
-import type { IMatchPost } from "../types";
+import type { IMatchData, IMatchPost } from "../types";
 
 export const getMatches = async (
   lang: string,
@@ -13,12 +13,15 @@ export const getMatches = async (
   if (page) params.page = page;
   if (limit) params.limit = limit;
 
-  return await API.get("/api/v1/admin/match-schedule", {
-    headers: {
-      "x-lang": lang,
-    },
-    params,
-  });
+  return await API.get<{ data: IMatchData[]; meta: { totalItems: number } }>(
+    "/api/v1/admin/match-schedule",
+    {
+      headers: {
+        "x-lang": lang,
+      },
+      params,
+    }
+  );
 };
 
 export const getMatchById = async (id: string) => {

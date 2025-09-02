@@ -9,3 +9,11 @@ export function formatDate(isoString: string): string {
 
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
+
+export function formatDateStandart(isoString: string) {
+  const date = formatDate(isoString).split(" ");
+  return {
+    date: date[0],
+    time: date[1],
+  };
+}

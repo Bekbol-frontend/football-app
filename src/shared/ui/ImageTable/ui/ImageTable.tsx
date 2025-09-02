@@ -11,7 +11,9 @@ function ImageTable({ logo }: IProps) {
   return (
     <Flex
       style={{
+        minWidth: "40px",
         width: "50px",
+        minHeight: "40px",
         height: "50px",
         borderRadius: "5px",
         overflow: "hidden",
